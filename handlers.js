@@ -1,6 +1,7 @@
 var aws = require('aws-sdk');
 var level = require('level');
 var db = level('./mydb');
+var redis = require('./redisAdaptor.js')({connection: require('redis')});
 
 function handlers() {
   return {
@@ -40,14 +41,25 @@ function handlers() {
       var s3_params = {
         Bucket: process.env.S3_BUCKET,
         Key: 'images/' + request.query.file_name,
-        Expires: 60,  
+        Expires: 60,
         ContentType: request.query.file_type,
         ACL: 'public-read'
       };
       s3.getSignedUrl('putObject', s3_params, function(err, data){
         if(err){
-          console.log(err);
+          console.log("err",err);
         } else {
+          var imgData = {
+            time: new Date().getTime(),
+            id: "nikki",
+          };
+          redis.create(imgData, function(err) {
+            if (err)
+            {console.log(err);}
+            else {
+            console.log("added to redis");
+          }
+          });
           reply(data);
         }
       });
