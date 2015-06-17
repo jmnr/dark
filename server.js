@@ -27,14 +27,9 @@ var authOptions = {
 
 
 //register plugins with server
-server.register([{
-    register: Good,
-    options: goodOptions
-  },{
-    register: Bell
-  },{
-    register: AuthCookie
-  }],
+server.register([{register: Good, options: goodOptions},
+  { register: Bell},
+  { register: AuthCookie}],
 
   function (err) {
     if (err) {
@@ -46,14 +41,13 @@ server.register([{
 		server.auth.strategy('session', 'cookie', {
 		    cookie: 'sid',
 		    password: '12345678',
-		    // redirectTo: '/',
+		    // redirectTo: '/', //this allows logout to work!
         isSecure: false,
-        ttl: 3000
+        ttl: 3000  //expiry time of cookie
         // clearInvalid: true
 		});
 
     server.auth.default('session');  //if no auth is specified it defaults to checking the session cookie
-
     server.route(require('./routes'));
 
   }

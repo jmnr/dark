@@ -27,10 +27,11 @@ We plan to get version on heroku but till then:
 
 ##Features
 
-[ ] 3rd Party Authentication using Github (also maybe google)
-[ ] Enable User sessions using hapi-auth-cookie
-[ ] Upload photos to Amazon s3
-[ ] Store meta data in redis
+[x] 3rd Party Authentication using Github (also maybe google)
+[x] Enable User sessions using hapi-auth-cookie
+[x] Upload photos to Amazon s3
+[x] Store meta data in redis
+[ ] Store users photos so they can be read if the user revisits the site
 [ ] Read photos from Amazon on loading the home page
-[ ] Read user photos only on loading the profile page
+[ ] Read user's photos on loading the profile page
 [ ] Socket
