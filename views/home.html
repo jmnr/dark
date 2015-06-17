@@ -8,14 +8,20 @@
     <meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0"/>
   </head>
   <body>
-    <!-- <div id="content"> -->
+    <div id="content">
       <div id="headerContainer">
         <div id="header">
-          <h1>DARK</h1>
+          <img src="/static/images/DARK.png">
+          <h1>HELLO {{name}}</h1>
         </div>
         <div id="buttonsContainer">
-          <button class="button" id="profileButton">PROFILE</button>
-          <button class="button" id="loginButton">LOG IN</button>
+          <div id="loggedOutContainer">
+            <button class="button" id="loginButton">LOG IN</button>
+          </div>
+          <div id="loggedInContainer">
+            <button class="button" id="profileButton">PROFILE</button>
+            <button class="button" id="postButton">POST</button>
+          </div>
         </div>
         <div id="postDiv">
           <input type="file" id="file_input"/>
@@ -49,7 +55,7 @@
           <img src="/static/images/square.png" class="image">
         </div>
       </div>
-    <!-- </div> -->
+    </div>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="/static/js/frontend.js"></script>
     <script type="text/javascript" src="/static/js/script.js"></script>
