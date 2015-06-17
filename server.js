@@ -4,7 +4,7 @@ var Hapi = require('hapi'),
     Good = require('good'),
     Bell = require('bell'),
     AuthCookie = require('hapi-auth-cookie'),
-    server = new Hapi.Server(),
+    server = new Hapi.Server({debug: {request: ['error']}}),
     goodOptions = require('./goodOptions');
 
 server.connection({ port: 8000 });
@@ -18,10 +18,10 @@ server.views({
 });
 
 var authOptions = {
-    provider: 'github',
-    password: 'github-encryption-password', //Password used for encryption
-    clientId: '9fdbf4d83aea78f4aab4',//'YourAppId',
-    clientSecret: 'f432895e56c5bac1b4d89fcd3bf59e57ff0e3ae9',//'YourAppSecret',
+    provider: 'google',
+    password: 'google-encryption-password', //Password used for encryption
+    clientId: '604932332741-irdehp8c2fq79d8netd6jbetkh05rt68.apps.googleusercontent.com',//'YourAppId',
+    clientSecret: 'sNWs4seCac0jzjK5vGlQjOpV',//'YourAppSecret',
     isSecure: false //means authentication can occur over http
 };
 
@@ -36,7 +36,7 @@ server.register([{register: Good, options: goodOptions},
         throw err; // something bad happened loading the plugin
     }
 
-    server.auth.strategy("github", 'bell', authOptions);
+    server.auth.strategy("google", 'bell', authOptions);
 
 		server.auth.strategy('session', 'cookie', {
 		    cookie: 'sid',

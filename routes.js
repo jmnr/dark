@@ -44,7 +44,7 @@ module.exports = [
     config: {
         auth: {
           mode: "optional",
-          strategy: "github"
+          strategy: "google"
         },
         handler: handlers.loginUser
       }

@@ -7,7 +7,7 @@ var Code = require('code');
 
 var home;
 fs.readFile('views/home.html', function(err,data){
-  home = data.toString();
+  home = data.toString().substring(0,16);
 });
 
 var testImage;
@@ -23,7 +23,7 @@ lab.experiment("Basic HTTP requests", function() {
         };
         server.inject(options, function(response) {
             Code.expect(response.statusCode).to.equal(200);  //  Expect http response status code to be 200 ("Ok")
-            Code.expect(response.payload).to.equal(home);
+            Code.expect(response.payload.substring(0, 16)).to.equal(home);
             done();
         });
     });
@@ -38,13 +38,13 @@ lab.experiment("Basic HTTP requests", function() {
             done();
         });
     });
-    lab.test("GET request to /login sends a 401 error if the user authentication with github fails", function(done) {
+    lab.test("GET request to /login has a status code of 302 to indicate url is being redirected", function(done) {
         var options = {
             method: "GET",
             url: "/login"
         };
         server.inject(options, function(response) {
-          Code.expect(response.statusCode).to.equal(401);
+          Code.expect(response.statusCode).to.equal(302);
             done();
         });
     });

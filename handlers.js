@@ -9,8 +9,9 @@ function handlers() {
     displayHome: function(request, reply) {
       if (request.auth.isAuthenticated) {
         request.log('analytics request is being sent');
+        console.log(request.auth.credentials);
         reply.view('home', {
-          name: request.auth.credentials.username
+          name: request.auth.credentials.name.first
         });
       }
       else {
