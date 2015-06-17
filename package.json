@@ -7,8 +7,14 @@
     "test": "test"
   },
   "scripts": {
-    "test": "test",
-    "start": "nodemon server.js"
+    "test": "./node_modules/lab/bin/lab -c",
+    "coverage": "./node_modules/.bin/istanbul cover test/*.js && ./node_modules/.bin/istanbul check-coverage --statements 90 --functions 100 --lines 90 --branches 90",
+    "nocov": "node test/*.js",
+    "codeclimate": "CODECLIMATE_REPO_TOKEN=08ea06a96d84eb645b326dbfc18acc18ff04faccd655324136251a2fbba296e2 ./node_modules/codeclimate-test-reporter/bin/codeclimate.js < ./coverage/lcov.info",
+    "start": "node server.js",
+    "nodemon": "nodemon ./server.js",
+    "jshint": "jshint -c .jshintrc --exclude-path .gitignore .",
+    "istanbul": "istanbul"
   },
   "repository": {
     "type": "git",
@@ -31,8 +37,16 @@
     "url": "https://github.com/jmnr/dark/issues"
   },
   "homepage": "https://github.com/jmnr/dark",
+  "devDependencies": {
+    "code": "^1.4.0",
+    "codeclimate-test-reporter": "0.0.4",
+    "fakeredis": "0.3.1",
+    "shot": "^1.5.0"
+  },
   "dependencies": {
     "bell": "^4.0.0",
+    "catbox": "^4.3.0",
+    "catbox-memory": "^1.1.1",
     "good": "^6.1.4",
     "good-console": "^5.0.2",
     "good-http": "^5.0.0",
@@ -40,10 +54,14 @@
     "hapi": "^8.6.1",
     "hapi-auth-cookie": "^3.0.1",
     "hiredis": "^0.4.0",
+    "hoek": "^2.14.0",
+    "isemail": "^1.1.1",
     "istanbul": "^0.3.15",
     "joi": "^6.4.3",
     "lab": "^5.10.0",
+    "moment": "^2.10.3",
     "redis": "^0.12.1",
-    "socket.io": "^1.3.5"
+    "socket.io": "^1.3.5",
+    "topo": "^1.0.2"
   }
 }
