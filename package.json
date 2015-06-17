@@ -11,7 +11,7 @@
     "coverage": "./node_modules/.bin/istanbul cover test/*.js && ./node_modules/.bin/istanbul check-coverage --statements 90 --functions 100 --lines 90 --branches 90",
     "nocov": "node test/*.js",
     "codeclimate": "CODECLIMATE_REPO_TOKEN=08ea06a96d84eb645b326dbfc18acc18ff04faccd655324136251a2fbba296e2 ./node_modules/codeclimate-test-reporter/bin/codeclimate.js < ./coverage/lcov.info",
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "nodemon": "nodemon ./server.js",
     "jshint": "jshint -c .jshintrc --exclude-path .gitignore .",
     "istanbul": "istanbul"

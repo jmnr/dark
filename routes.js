@@ -2,16 +2,20 @@ var fs = require('fs');
 var Path = require('path');
 var level = require('level');
 var db = level('./mydb');
+var handlers = require('./handlers.js')();
 
 module.exports = [
-  {
+  { //home page
     method: 'GET',
     path: '/',
-    handler: {
-      view: 'home'
-    }
+    config: {
+      auth: {
+        mode: "try",
+      }
+    },
+    handler: handlers.displayHome
   },
-  {
+  { //handler for all css, images and js files
     method: 'GET',
     path: '/static/{path*}',
     handler:  {
@@ -21,13 +25,42 @@ module.exports = [
     }
   },
   {
-    method: "GET",
-    path: '/{name}',
-    handler: function (request, reply) {
-        request.log('analytics request is being sent');
-        reply('Hello, ' + encodeURIComponent(request.params.name) + '!');
-    }
+    method: 'GET',
+    path: '/my-account',
+    config: {
+        auth: {
+          strategy: 'session',
+          mode: 'required',
+        },
+        handler: {
+          view: 'profile'
+        }
+      }
   },
+  {
+    method: ['GET', 'POST'],
+    path: '/login',
+    config: {
+        auth: 'github',
+        handler: handlers.loginUser
+      }
+  },
+  {
+    method: 'GET',
+    path: '/logout',
+    config: {
+        handler: handlers.logoutUser
+      }
+  },
+  // {
+  //   // would post to db
+  //   method: "GET",
+  //   path: '/{name}',
+  //   handler: function (request, reply) {
+  //       request.log('analytics request is being sent');
+  //       // reply('Hello, ' + encodeURIComponent(request.params.name) + '!');
+  //   }
+  // },
   {
     method: 'POST',
     path: '/analytics',
@@ -43,6 +76,11 @@ module.exports = [
   {
     method: 'GET',
     path: '/analytics',
+    config: {
+      auth: {
+        mode: "try"
+      }
+    },
     handler: function (request, reply) {
         var result = [];
         // var today = (results for /timestamp id - 86400000 (24 hours in milliseconds/.length)
@@ -61,40 +99,4 @@ module.exports = [
 
     }
   },
-//
-//   ###
-
-// handler: function(request, reply) {
-//         var names = request.params.name.split("/");
-//         reply({
-//             first: names[0],
-//             last: names[1],
-//             mood: request.query.mood || "neutral"
-//         });
-//     }
-//
-//     ###
-// {
-//       method: 'GET',
-//       path: '/analytics',
-//       handler: {
-//          view: "analytics.html"
-//      }
-//   }
-//
-//   server.views({
-//        engines: {
-//            html: require('handlebars')
-//        },
-//        path: Path.join(__dirname, 'templates')
-//    });
-//    ###
-  {
-      method: 'GET',
-      path: '/login/{name}',
-      handler: function (request, reply) {
-          request.log();
-          reply("welcome, " + request.params.name);
-      }
-  }
 ];
