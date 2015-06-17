@@ -46,9 +46,10 @@ body {
   padding: 5px 10px;
 }
 
-/*.displayWhenLoggedIn {
-  display: none;
-}*/
+#postDiv {
+  padding-top: 50px;
+  text-align: center;
+}
 
 /*images*/
 
