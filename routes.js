@@ -10,10 +10,11 @@ module.exports = [
   },
   {
     method: 'GET',
-    path: '/',
-    handler: {
-      view: 'home'
+    path: '/static/{path*}',
+    handler:  {
+      directory: {
+        path: './'
+      }
     }
   },
-
 ];

@@ -9,7 +9,12 @@ var Code = require('code');
 var home;
 fs.readFile('views/home.html', function(err,data){
   home = data.toString();
-  console.log('home', home);
+  // console.log('home', home);
+});
+
+var testImage;
+fs.readFile('images/square.png', function(err,data){
+  testImage = data.toString();
 });
 
 lab.experiment("Basic HTTP requests", function() {
@@ -21,6 +26,17 @@ lab.experiment("Basic HTTP requests", function() {
         server.inject(options, function(response) {
             Code.expect(response.statusCode).to.equal(200);  //  Expect http response status code to be 200 ("Ok")
             Code.expect(response.payload).to.equal(home);
+            done();
+        });
+    });
+    lab.test("GET request to / serves up the home.html page", function(done) {
+        var options = {
+            method: "GET",
+            url: "/static/images/square.png"
+        };
+        server.inject(options, function(response) {
+            Code.expect(response.statusCode).to.equal(200);  //  Expect http response status code to be 200 ("Ok")
+            Code.expect(response.payload.toString()).to.equal(testImage);
             done();
         });
     });
