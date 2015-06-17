@@ -1,7 +1,5 @@
 var fs = require('fs');
 var Path = require('path');
-var level = require('level');
-var db = level('./mydb');
 var handlers = require('./handlers.js')();
 
 module.exports = [
@@ -18,6 +16,11 @@ module.exports = [
   { //handler for all css, images and js files
     method: 'GET',
     path: '/static/{path*}',
+    config: {
+      auth: {
+        mode: "optional"
+      }
+    },
     handler:  {
       directory: {
         path: './'
@@ -49,8 +52,18 @@ module.exports = [
     method: 'GET',
     path: '/logout',
     config: {
-        handler: handlers.logoutUser
-      }
+      handler: handlers.logoutUser
+    }
+  },
+  {
+    method: "POST",
+    path: '/sign_s3',
+    config: {
+      auth: {
+        mode: "try"
+      },
+      handler: handlers.awsS3
+    }
   },
   // {
   //   // would post to db
@@ -65,12 +78,11 @@ module.exports = [
     method: 'POST',
     path: '/analytics',
     handler: function (request, reply) {
-        db.put(request.payload.events.request[0].timestamp, request.payload.events.request[0].id, function (err) {
-          if (err){
-            console.log('Ooops!', err);
-          }
-        });
-
+      db.put(request.payload.events.request[0].timestamp, request.payload.events.request[0].id, function (err) {
+        if (err){
+          console.log('Ooops!', err);
+        }
+      });
     }
   },
   {

@@ -15,6 +15,7 @@ hs_err_pid*
 .env
 
 #JMNR
+mydb
 npm-debug.log
 coverage
 node_modules
