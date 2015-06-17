@@ -8,9 +8,20 @@
     <meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0"/>
   </head>
   <body>
-    <div id="content">
-      <div id="header">
-        <img src="DARK.png">
+    <!-- <div id="content"> -->
+      <div id="headerContainer">
+        <div id="header">
+          <h1>DARK</h1>
+        </div>
+        <div id="buttonsContainer">
+          <button class="button" id="profileButton">PROFILE</button>
+          <button class="button" id="loginButton">LOG IN</button>
+        </div>
+        <div id="postDiv">
+          <input type="file" id="file_input"/>
+          <p id="status">Please select a file</p>
+          <button id="submitUpload" class="button">Upload</button>
+        </div>
       </div>
       <div id="imageContainer">
         <div class="individualImageDiv">
@@ -38,6 +49,6 @@
           <img src="square.png" class="image">
         </div>
       </div>
-    </div>
+    <!-- </div> -->
   </body>
 </html>
