@@ -44,6 +44,7 @@
     "shot": "^1.5.0"
   },
   "dependencies": {
+    "aws-sdk": "^2.1.34",
     "bell": "^4.0.0",
     "catbox": "^4.3.0",
     "catbox-memory": "^1.1.1",
