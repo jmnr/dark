@@ -13,7 +13,7 @@ module.exports = [
     },
     handler: handlers.displayHome
   },
-  { //handler for all css, images and js files
+  { //route for all css, images and js files
     method: 'GET',
     path: '/static/{path*}',
     config: {
@@ -33,18 +33,19 @@ module.exports = [
     config: {
         auth: {
           strategy: 'session',
-          mode: 'required',
+          mode: 'optional',
         },
-        handler: {
-          view: 'profile'
+        handler: handlers.getProfilepage
         }
-      }
   },
   {
     method: ['GET', 'POST'],
     path: '/login',
     config: {
-        auth: 'github',
+        auth: {
+          mode: "optional",
+          strategy: "google"
+        },
         handler: handlers.loginUser
       }
   },
@@ -65,15 +66,6 @@ module.exports = [
       handler: handlers.awsS3
     }
   },
-  // {
-  //   // would post to db
-  //   method: "GET",
-  //   path: '/{name}',
-  //   handler: function (request, reply) {
-  //       request.log('analytics request is being sent');
-  //       // reply('Hello, ' + encodeURIComponent(request.params.name) + '!');
-  //   }
-  // },
   {
     method: 'POST',
     path: '/analytics',
