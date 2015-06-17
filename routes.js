@@ -13,6 +13,15 @@ module.exports = [
   },
   {
     method: 'GET',
+    path: '/static/{path*}',
+    handler:  {
+      directory: {
+        path: './'
+      }
+    }
+  },
+  {
+    method: "GET",
     path: '/{name}',
     handler: function (request, reply) {
         request.log('analytics request is being sent');

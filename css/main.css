@@ -1,12 +1,16 @@
+/*general*/
+
 /** {
   border: solid black 1px;
 }*/
 
 body {
-  background-attachment: fixed;
+  /*background-attachment: fixed;*/
   background-color: #262626;
-  background-image: url('http://newartcolorz.com/images/2014/1/fog-wallpaper-36612-37447-hd-wallpapers.jpg');
-  background-size: cover;
+  /*background-image: url('http://fc03.deviantart.net/fs51/i/2009/338/f/9/Cork_Wallpaper_by_buchlos.png');
+  background: tile;
+  background-size: cover;*/
+  border: none;
 }
 
 #content {
@@ -14,26 +18,64 @@ body {
   margin: 50px 100px;
 }
 
+/*header area*/
+
+#headerContainer {
+  background-color: #fafafa;
+  border-bottom-color: #edeeee;
+  border-bottom-width: 1px;
+  padding: 50px;
+}
+
 #header {
-  padding-top: 30px;
-  padding-bottom: 50px;
+  /*float: left;*/
+  color: #black;
+  /*display: inline-block;*/
+  padding-bottom: 20px;
+  text-align: center;
+  /*max-height: 60px;*/
+}
+
+#buttonsContainer {
+  /*display: inline-block;*/
+  /*float: right;*/
   text-align: center;
 }
 
+.button {
+  background-color: black;
+  border: none;
+  color: white;
+  display: inline-block;
+  font-size: 16px;
+  padding: 5px 10px;
+}
+
+#postDiv {
+  padding-top: 50px;
+  text-align: center;
+}
+
+/*images*/
+
 #imageContainer {
-  padding: 20px;
+  /*background-image: url('http://fc03.deviantart.net/fs51/i/2009/338/f/9/Cork_Wallpaper_by_buchlos.png');*/
+  /*background: tile;*/
+  /*background-size: cover;*/
+  background-color: #fafafa;
+  padding: 80px 20px;
   text-align: center;
 }
 
 .image {
-  object-fit: none;
+  object-fit: cover;
   object-position: center;
   height: 250px;
   width: 250px;
 }
 
 .individualImageDiv {
-  background-color: #1B1B1B;
+  background-color: #FFFFFF;
   display: inline-block;
   margin: 20px;
   padding: 20px 20px 70px 20px;
@@ -46,9 +88,9 @@ body {
   -webkit-transition: -webkit-transform .15s linear;
   -moz-transition: -moz-transform .15s linear;
   -o-transition: -o-transform .15s linear;
-  -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.25);
-  -moz-box-shadow: 0 3px 6px rgba(0,0,0,.25);
-  box-shadow: 0 3px 6px rgba(0,0,0,.25);
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.25);
+  -moz-box-shadow: 0 5px 10px rgba(0,0,0,.25);
+  box-shadow: 0 5px 10px rgba(0,0,0,.25);
 }
 
 .individualImageDiv:nth-child(odd) {
@@ -91,7 +133,6 @@ body {
   -o-box-shadow: 0 3px 6px rgba(0,0,0,.5);
   box-shadow: 0 3px 6px rgba(0,0,0,.5);
   position: relative;
-  z-index: 5;
 }
 
 @media (max-width: 700px) {
