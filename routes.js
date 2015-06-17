@@ -2,16 +2,20 @@ var fs = require('fs');
 var Path = require('path');
 var level = require('level');
 var db = level('./mydb');
+var handlers = require('./handlers.js')();
 
 module.exports = [
-  {
+  { //home page
     method: 'GET',
     path: '/',
-    handler: {
-      view: 'home'
-    }
+    config: {
+      auth: {
+        mode: "try",
+      }
+    },
+    handler: handlers.displayHome
   },
-  {
+  { //handler for all css, images and js files
     method: 'GET',
     path: '/static/{path*}',
     handler:  {
@@ -21,15 +25,45 @@ module.exports = [
     }
   },
   {
-    method: "GET",
-    path: '/{name}',
-    handler: function (request, reply) {
-                                                                                // console.log("We got a request!");
-        request.log('a giraffe' );
-        reply('Hello, ' + encodeURIComponent(request.params.name) + '!');
-                                                                                //console.log("frog");
-    }
+    method: 'GET',
+    path: '/my-account',
+    config: {
+        auth: {
+          strategy: 'session',
+          mode: 'required',
+        },
+        handler: {
+          view: 'profile'
+        }
+      }
   },
+  {
+    method: ['GET', 'POST'],
+    path: '/login',
+    config: {
+        auth: 'github',
+        handler: handlers.loginUser
+      }
+  },
+  {
+    method: 'GET',
+    path: '/logout',
+    config: {
+        handler: handlers.logoutUser
+      }
+  },
+
+
+  // {
+  //   method: "GET",
+  //   path: '/{name}',
+  //   handler: function (request, reply) {
+  //                                                                               // console.log("We got a request!");
+  //       request.log('a giraffe' );
+  //       reply('Hello, ' + encodeURIComponent(request.params.name) + '!');
+  //                                                                               //console.log("frog");
+  //   }
+  // },
   {
     // would post to db
     method: 'POST',
