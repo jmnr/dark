@@ -1,4 +1,4 @@
-$(document).ready(function () {
-  $("#loggedInContainer").hide();
-  $("#postDiv").hide();
-});
+// $(document).ready(function () {
+//   $("#loggedInContainer").hide();
+//   $("#postDiv").hide();
+// });

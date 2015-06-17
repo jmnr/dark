@@ -9,7 +9,6 @@ var Code = require('code');
 var home;
 fs.readFile('views/home.html', function(err,data){
   home = data.toString();
-  // console.log('home', home);
 });
 
 var testImage;
