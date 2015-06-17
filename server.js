@@ -15,10 +15,6 @@ server.views({
 
 server.route(require('./routes'));
 
-server.start(function () {
-    server.log('info', 'Server running at: ' + server.info.uri);
-});
-
 server.register({
     register: Good,
     options: {
@@ -42,5 +38,9 @@ server.register({
       }
   }
 );
+
+server.start(function () {
+    server.log('info', 'Server running at: ' + server.info.uri);
+});
 
 module.exports = server;

@@ -13,6 +13,15 @@ module.exports = [
   },
   {
     method: 'GET',
+    path: '/static/{path*}',
+    handler:  {
+      directory: {
+        path: './'
+      }
+    }
+  },
+  {
+    method: "GET",
     path: '/{name}',
     handler: function (request, reply) {
                                                                                 // console.log("We got a request!");
@@ -72,5 +81,4 @@ module.exports = [
           reply("welcome, " + request.params.name);
       }
   }
-
 ];
