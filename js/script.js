@@ -51,9 +51,7 @@ var serverGrab = function() {
 
 function loveClick () {
   $(".loveButton").on('click', function() {
-    console.log("hey");
     var countElement = $(this).siblings()[1];
-    console.log(countElement);
     var loveCountString = $(countElement).html();
     var loveCount = parseInt(loveCountString);
     loveCount = loveCount + 1;
@@ -94,7 +92,7 @@ function upload_file(file, data){
     alert("Could not upload file.");
   };
   xhr.send(file);
-  $("#status").hide(function() {
+  $("#status").fadeOut("slow", function() {
     $("#status").html("File uploaded successfully!").fadeIn("slow");
   });
 }
