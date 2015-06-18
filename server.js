@@ -45,7 +45,6 @@ server.register(
 
   function (err) {
     if (err) {
-      console.log("FUCKED");
       throw err; // something bad happened loading the plugin
     }
 
