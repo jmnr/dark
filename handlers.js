@@ -51,14 +51,11 @@ function handlers() {
     },
 
     awsS3: function(request, reply) {
-      request.log('analytics request is being sent');
-      console.log("sign s3");
       aws.config.update({accessKeyId: process.env.AWS_ACCESS_KEY_ID, secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY});
       var s3 = new aws.S3();
       var s3_params = {
         Bucket: process.env.S3_BUCKET,
         Key: 'images/' + request.query.file_name,
-        Expires: 60,
         ContentType: request.query.file_type,
         ACL: 'public-read'
       };
@@ -66,19 +63,27 @@ function handlers() {
         if(err){
           console.log("err",err);
         } else {
-          var imgData = {
+          var imageData = {
             time: new Date().getTime(),
-            id: "nikki",
+            id: request.query.file_name,
+            username: "anonymous",
+            imgURL: "https://s3-eu-west-1.amazonaws.com/dark-image-bucket/" + s3_params.Key
           };
-          redis.create(imgData, function(err) {
+          redis.create(imageData, function(err) {
             if (err)
-            {console.log(err);}
+              {console.log(err);}
             else {
-            console.log("added to redis");
+              console.log("added to redis");
           }
           });
           reply(data);
         }
+      });
+    },
+
+    loadImages: function(request, reply) {
+      redis.read(function(data){
+        reply(JSON.stringify(data));
       });
     }
   };

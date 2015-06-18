@@ -1,23 +1,23 @@
 $(document).ready(function () {
   //hide these options if the user is not authenticated
-  $("#loggedInContainer").hide();
-  $("#postDiv").hide();
+  // $("#loggedInContainer").hide();
+  // $("#postDiv").hide();
 });
 //
 
 
-$("#loginButton").on('click', function() {
-  $.ajax({
-    url: "/login",
-    dataType: 'jsonp',
-    xhrFields: {
-      withCredentials: true
-    }
-  }).done (function(){
-    $("loggedInContainer").show();
-    $("#loggedOutContainer").hide();
-    });
-});
+// $("#loginButton").on('click', function() {
+//   $.ajax({
+//     url: "/login",
+//     dataType: 'jsonp',
+//     xhrFields: {
+//       withCredentials: true
+//     }
+//   }).done (function(){
+//     $("loggedInContainer").show();
+//     $("#loggedOutContainer").hide();
+//     });
+// });
 
 
 // $('#profileButton').on('click', function(){
