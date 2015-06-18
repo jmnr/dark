@@ -69,16 +69,26 @@ body {
 }
 
 .image {
+  opacity:.1;
   object-fit: cover;
   object-position: center;
-  -webkit-filter: grayscale(100%);
-  filter: grayscale(100%);
+  -webkit-filter: grayscale(50%);
+  filter: grayscale(50%);
   height: 250px;
   width: 250px;
 }
 
+.imageHolder {
+  background-color: black;
+  height: 250px;
+  width: 250px;
+  margin: 0;
+  padding: 0;
+}
+
 .individualImageDiv {
   background-color: #FFFFFF;
+  color: black;
   display: inline-block;
   margin: 20px;
   padding: 20px 20px 70px 20px;

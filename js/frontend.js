@@ -14,10 +14,38 @@ $("#loginButton").on('click', function() {
       withCredentials: true
     }
   }).done (function(){
-    $("loggedInContainer").show();
+    $("#loggedInContainer").show();
     $("#loggedOutContainer").hide();
     });
 });
+
+var opacity = $(".image").css("opacity");
+console.log(opacity);
+
+$(".loveButton").on('click', function() {
+  var countElement = $(this).siblings()[1];
+  var loveCountString = $(countElement).html();
+  var loveCount = parseInt(loveCountString);
+  loveCount = loveCount + 1;
+  $(countElement).html(loveCount);
+  opacity = (opacity * 10 + 1)/10;
+  // console.log(this);
+  $().siblings(".image").css('opacity', opacity);
+  console.log(opacity);
+});
+
+
+// function increaseLoves () {
+//
+// }
+//
+//
+// function increaseOpacity (element) {
+//
+// }
+
+//when you click this button, the closest image or the sibling with
+//the class image changes its css opacity properties
 
 
 // $('#profileButton').on('click', function(){
