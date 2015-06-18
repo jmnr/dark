@@ -1,6 +1,6 @@
 /*general*/
-
-/** {
+/*
+* {
   border: solid black 1px;
 }*/
 
@@ -60,11 +60,8 @@ body {
 /*images*/
 
 #imageContainer {
-  /*background-image: url('http://fc03.deviantart.net/fs51/i/2009/338/f/9/Cork_Wallpaper_by_buchlos.png');*/
-  /*background: tile;*/
-  /*background-size: cover;*/
   background-color: #fafafa;
-  padding: 80px 20px;
+  padding: 20px 20px;
   text-align: center;
 }
 

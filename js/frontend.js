@@ -1,34 +1,40 @@
-$(document).ready(function () {
+console.log("working");
+
+
   //hide these options if the user is not authenticated
   // $("#loggedInContainer").hide();
   // $("#postDiv").hide();
-});
 //
 
-$("#loginButton").on('click', function() {
-  $.ajax({
-    url: "/login",
-    dataType: 'jsonp',
-    xhrFields: {
-      withCredentials: true
-    }
-  }).done (function(){
-    $("#loggedInContainer").show();
-    $("#loggedOutContainer").hide();
-    });
-});
-
-$(".loveButton").on('click', function() {
-  var countElement = $(this).siblings()[1];
-  var loveCountString = $(countElement).html();
-  var loveCount = parseInt(loveCountString);
-  loveCount = loveCount + 1;
-  $(countElement).html(loveCount);
-  var imageHolder = $(this).siblings()[0];
-  var image = $(imageHolder).children()[0];
-  var currentOpacity = $(image).css('opacity');
-  var opacity = (currentOpacity * 10 + 1)/10;
-  $(image).css('opacity', opacity);
+// $("#loginButton").on('click', function() {
+//   $.ajax({
+//     url: "/login",
+//     dataType: 'jsonp',
+//     xhrFields: {
+//       withCredentials: true
+//     }
+//   }).done (function(){
+//     $("#loggedInContainer").show();
+//     $("#loggedOutContainer").hide();
+//     });
+// });
+$(document).ready(function () {
+  console.log("heyy");
+  console.log($("#imageContainer").children());
+  $(".loveButton").on('click', function() {
+    console.log("hey");
+    var countElement = $(this).siblings()[1];
+    console.log(countElement);
+    var loveCountString = $(countElement).html();
+    var loveCount = parseInt(loveCountString);
+    loveCount = loveCount + 1;
+    $(countElement).html(loveCount);
+    var imageHolder = $(this).siblings()[0];
+    var image = $(imageHolder).children()[0];
+    var currentOpacity = $(image).css('opacity');
+    var opacity = (currentOpacity * 10 + 1)/10;
+    $(image).css('opacity', opacity);
+  });
 });
 
 // function darkenImages () {
