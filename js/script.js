@@ -51,40 +51,6 @@ window.onload = function () {
   serverGrab();
 };
 
-// $("#loginButton").on('click', function() {
-//   var xhr = new XMLHttpRequest();
-//   var oauthToken = gapi.auth.getToken();
-//   xhr.open('GET',
-//     'https://www.googleapis.com/plus/v1/people/me/activities/public' +
-//     '?access_token=' + encodeURIComponent(oauthToken.access_token));
-//   xhr.send();
-
-//   var xhr = new XMLHttpRequest();
-//   xhr.open("POST", "/login");
-//   xhr.onreadystatechange = function(){
-//     if(xhr.readyState === 4){
-//       if(xhr.status === 200){
-//         upload_file(file, xhr.responseText);
-//       }
-//       else{
-//         alert("Could not get signed URL.");
-//       }
-//     }
-//   };
-//   xhr.send();
-
-//   $.ajax({
-//     url: "/login",
-//     dataType: 'jsonp',
-//     xhrFields: {
-//       withCredentials: true
-//     }
-//   }).done (function(){
-//     $("loggedInContainer").show();
-//     $("#loggedOutContainer").hide();
-//     });
-// });
-
 function get_signed_request(file){
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "/sign_s3?file_name=" + addID() + "&file_type=" + file.type);
