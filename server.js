@@ -4,8 +4,7 @@ var Hapi = require('hapi'),
     Good = require('good'),
     Bell = require('bell'),
     AuthCookie = require('hapi-auth-cookie'),
-    server = new Hapi.Server({debug: {request: ['error']}}),
-    goodOptions = require('./goodOptions');
+    server = new Hapi.Server({debug: {request: ['error']}});
 
 server.connection({ port: 8000 });
 
@@ -26,8 +25,34 @@ var authOptions = {
 };
 
 
+// module.exports = {
+//   reporters: [{
+//     reporter: require('good-http'),
+//     events: { request: '*' },
+//     config: {
+//       endpoint : 'http://localhost:3000/analytics',
+//       threshold: 0
+//       // ,wreck: {
+//       //     headers: { 'x-api-key' : 12345 }
+//       //     }
+//     }
+//   }]
+// };
+
 //register plugins with server
-server.register([{register: Good, options: goodOptions},
+server.register([{register: Good, options: {
+  reporters: [{
+    reporter: require('good-http'),
+    events: { request: '*' },
+    config: {
+      endpoint : 'http://localhost:8000/analytics',
+      threshold: 0
+      // ,wreck: {
+      //     headers: { 'x-api-key' : 12345 }
+      //     }
+    }
+  }]
+  }},
   { register: Bell},
   { register: AuthCookie}],
 
