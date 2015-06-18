@@ -1,6 +1,8 @@
 var fs = require('fs');
 var Path = require('path');
 var handlers = require('./handlers.js')();
+var level = require('level');
+var db = level('./mydb');
 
 module.exports = [
   { //home page
@@ -79,13 +81,12 @@ module.exports = [
   {
     method: 'POST',
     path: '/analytics',
-    handler: function (request, reply) {
-      db.put(request.payload.events.request[0].timestamp, request.payload.events.request[0].id, function (err) {
-        if (err){
-          console.log('Ooops!', err);
-        }
-      });
-    }
+    config: {
+      auth: {
+        mode: "try"
+      }
+    },
+    handler: handlers.analyticsPost
   },
   {
     method: 'GET',
@@ -95,22 +96,6 @@ module.exports = [
         mode: "try"
       }
     },
-    handler: function (request, reply) {
-        var result = [];
-        // var today = (results for /timestamp id - 86400000 (24 hours in milliseconds/.length)
-        db.createReadStream()
-        .on('data', function (data) {
-          result.push(data.key + ' = ' + data.value + "<br/>");
-        })
-        .on('end', function () {
-          reply.view("analytics", {
-            total: result.length,
-            // daily: result,
-          });
-          // reply('Total number of visits to the site ' + '<strong>' + result.length + '</strong>' + '<br/>' +
-          //       'Total number of visits in the last 24 hours ' + '<strong>' + 'today' + '</strong>' + '<br/>');
-        });
-
-    }
+    handler: handlers.analyticsGet
   },
 ];

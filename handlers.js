@@ -1,6 +1,4 @@
 var aws = require('aws-sdk');
-var level = require('level');
-var db = level('./mydb');
 var redis = require('./redisAdaptor.js')({connection: require('redis')});
 
 function handlers() {
@@ -83,9 +81,55 @@ function handlers() {
 
     loadImages: function(request, reply) {
       redis.read(function(data){
+        console.log("replying with files");
         reply(JSON.stringify(data));
       });
+    },
+
+    //Analytics Handlers
+
+    analyticsPost: function (request, reply) {
+      var analObj = {
+        time: request.payload.events.request[0].timestamp,
+        id: request.payload.events.request[0].id
+      };
+
+      redis.addAnalytics(analObj, function(err) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("added analytics to redis");
+        }
+      });
+
+      reply(true);
+      // db.put(request.payload.events.request[0].timestamp, request.payload.events.request[0].id, function (err) {
+      //   if (err){
+      //     console.log('Ooops!', err);
+      //   }
+      // });
+    },
+
+    analyticsGet: function (request, reply) {
+      var result = [];
+
+      redis.readAnalytics(function(data){
+        reply.view("analytics", {total: data.length});
+      });
+
+      // var today = (results for /timestamp id - 86400000 (24 hours in milliseconds/.length)
+      // db.createReadStream()
+      // .on('data', function (data) {
+      //   result.push(data.key + ' = ' + data.value + "<br/>");
+      // })
+      // .on('end', function () {
+      //   reply.view("analytics", {
+      //     total: result.length
+      //   });
+      // reply('Total number of visits to the site ' + '<strong>' + result.length + '</strong>' + '<br/>' +
+      //       'Total number of visits in the last 24 hours ' + '<strong>' + 'today' + '</strong>' + '<br/>');
     }
+
   };
 }
 
