@@ -1,10 +1,9 @@
 $(document).ready(function () {
   //hide these options if the user is not authenticated
-  $("#loggedInContainer").hide();
-  $("#postDiv").hide();
+  // $("#loggedInContainer").hide();
+  // $("#postDiv").hide();
 });
 //
-
 
 $("#loginButton").on('click', function() {
   $.ajax({

@@ -67,6 +67,16 @@ module.exports = [
     }
   },
   {
+    method: "GET",
+    path: '/loadImages',
+    config: {
+      auth: {
+        mode: "try"
+      },
+      handler: handlers.loadImages
+    }
+  },
+  {
     method: 'POST',
     path: '/analytics',
     handler: function (request, reply) {

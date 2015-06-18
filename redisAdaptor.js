@@ -16,27 +16,37 @@ var redisAdaptor = function (config) {
 
   return {
       create: function(imageData, callback) {
-        client.hmset(imageData.time, imageData, function(err){
-          callback(err);
-        });
+        client.select(0, //database 0 is for our metadata
+          client.hmset(imageData.id, imageData, function(err){
+            callback(err);
+          })
+        );
+      },
+
+      addAnalytics: function(imageData, callback) {
+        client.select(1, //database 1 is for analytics
+          client.hmset(data.ID, data, function(err){
+            callback(err);
+          })
+        );
       },
 
       read: function(callback) {
-        var clapsLoad = [];
+        var fileLoad = [];
         var len;
 
         var cb = function(err, data) {
-          clapsLoad.push(data);
-          if(clapsLoad.length === len) {
-            callback(clapsLoad);
+          fileLoad.push(data);
+          if(fileLoad.length === len) {
+            callback(fileLoad);
           }
         };
 
         client.scan(0, function(err, data) {
-          var claps = data[1];
-          len = claps.length;
+          var files = data[1];
+          len = files.length;
           for(var i = 0; i < len; i++) {
-            client.hgetall(claps[i], cb);
+            client.hgetall(files[i], cb);
           }
         });
       },
