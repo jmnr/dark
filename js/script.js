@@ -32,7 +32,7 @@ function addID() {
 }
 
 var addDivs = function (data) {
-  return '<div class="individualImageDiv"><img src="' + data.imgURL + '"class="image"></div>';
+  return '<div class="individualImageDiv"><div class="imageHolder"><img src="' + data.imgURL + '"class="image"></div><button class="loveButton">LOVE</button><div class="loveCount">0</div></div>';
 };
 
 var serverGrab = function() {
@@ -44,46 +44,31 @@ var serverGrab = function() {
       accessDOM += addDivs(files[i]);
     }
     $("#imageContainer").html(accessDOM);
+    loveClick();
   });
+
 };
+
+function loveClick () {
+  $(".loveButton").on('click', function() {
+    console.log("hey");
+    var countElement = $(this).siblings()[1];
+    console.log(countElement);
+    var loveCountString = $(countElement).html();
+    var loveCount = parseInt(loveCountString);
+    loveCount = loveCount + 1;
+    $(countElement).html(loveCount);
+    var imageHolder = $(this).siblings()[0];
+    var image = $(imageHolder).children()[0];
+    var currentOpacity = $(image).css('opacity');
+    var opacity = (currentOpacity * 10 + 1)/10;
+    $(image).css('opacity', opacity);
+  });
+}
 
 window.onload = function () {
   serverGrab();
 };
-
-// $("#loginButton").on('click', function() {
-//   var xhr = new XMLHttpRequest();
-//   var oauthToken = gapi.auth.getToken();
-//   xhr.open('GET',
-//     'https://www.googleapis.com/plus/v1/people/me/activities/public' +
-//     '?access_token=' + encodeURIComponent(oauthToken.access_token));
-//   xhr.send();
-
-//   var xhr = new XMLHttpRequest();
-//   xhr.open("POST", "/login");
-//   xhr.onreadystatechange = function(){
-//     if(xhr.readyState === 4){
-//       if(xhr.status === 200){
-//         upload_file(file, xhr.responseText);
-//       }
-//       else{
-//         alert("Could not get signed URL.");
-//       }
-//     }
-//   };
-//   xhr.send();
-
-//   $.ajax({
-//     url: "/login",
-//     dataType: 'jsonp',
-//     xhrFields: {
-//       withCredentials: true
-//     }
-//   }).done (function(){
-//     $("loggedInContainer").show();
-//     $("#loggedOutContainer").hide();
-//     });
-// });
 
 function get_signed_request(file){
   var xhr = new XMLHttpRequest();

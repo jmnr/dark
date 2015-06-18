@@ -1,6 +1,6 @@
 /*general*/
-
-/** {
+/*
+* {
   border: solid black 1px;
 }*/
 
@@ -11,6 +11,7 @@ body {
   background: tile;
   background-size: cover;*/
   border: none;
+  font-family: Source Sans Pro;
 }
 
 #content {
@@ -59,23 +60,32 @@ body {
 /*images*/
 
 #imageContainer {
-  /*background-image: url('http://fc03.deviantart.net/fs51/i/2009/338/f/9/Cork_Wallpaper_by_buchlos.png');*/
-  /*background: tile;*/
-  /*background-size: cover;*/
   background-color: #fafafa;
-  padding: 80px 20px;
+  padding: 20px 20px;
   text-align: center;
 }
 
 .image {
+  opacity:.1;
   object-fit: cover;
   object-position: center;
+  -webkit-filter: grayscale(20%);
+  filter: grayscale(20%);
   height: 250px;
   width: 250px;
 }
 
+.imageHolder {
+  background-color: black;
+  height: 250px;
+  width: 250px;
+  margin: 0;
+  padding: 0;
+}
+
 .individualImageDiv {
   background-color: #FFFFFF;
+  color: black;
   display: inline-block;
   margin: 20px;
   padding: 20px 20px 70px 20px;

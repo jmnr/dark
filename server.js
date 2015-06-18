@@ -6,7 +6,7 @@ var Hapi = require('hapi'),
     AuthCookie = require('hapi-auth-cookie'),
     server = new Hapi.Server({debug: {request: ['error']}});
 
-server.connection({ port: 8000 });
+server.connection({ port: process.env.PORT });
 
 // serves up views (html template pages)
 server.views({
@@ -23,21 +23,6 @@ var authOptions = {
     clientSecret: 'sNWs4seCac0jzjK5vGlQjOpV',//'YourAppSecret',
     isSecure: false //means authentication can occur over http
 };
-
-
-// module.exports = {
-//   reporters: [{
-//     reporter: require('good-http'),
-//     events: { request: '*' },
-//     config: {
-//       endpoint : 'http://localhost:3000/analytics',
-//       threshold: 0
-//       // ,wreck: {
-//       //     headers: { 'x-api-key' : 12345 }
-//       //     }
-//     }
-//   }]
-// };
 
 //register plugins with server
 server.register([{register: Good, options: {
