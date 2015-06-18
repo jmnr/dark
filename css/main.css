@@ -72,8 +72,8 @@ body {
   opacity:.1;
   object-fit: cover;
   object-position: center;
-  -webkit-filter: grayscale(50%);
-  filter: grayscale(50%);
+  -webkit-filter: grayscale(20%);
+  filter: grayscale(20%);
   height: 250px;
   width: 250px;
 }

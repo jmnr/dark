@@ -19,34 +19,44 @@ $("#loginButton").on('click', function() {
     });
 });
 
-var opacity = $(".image").css("opacity");
-console.log(opacity);
-
 $(".loveButton").on('click', function() {
   var countElement = $(this).siblings()[1];
   var loveCountString = $(countElement).html();
   var loveCount = parseInt(loveCountString);
   loveCount = loveCount + 1;
   $(countElement).html(loveCount);
-  opacity = (opacity * 10 + 1)/10;
-  // console.log(this);
-  $().siblings(".image").css('opacity', opacity);
-  console.log(opacity);
+  var imageHolder = $(this).siblings()[0];
+  var image = $(imageHolder).children()[0];
+  var currentOpacity = $(image).css('opacity');
+  var opacity = (currentOpacity * 10 + 1)/10;
+  $(image).css('opacity', opacity);
 });
 
-
-// function increaseLoves () {
-//
+// function darkenImages () {
+//   // $(".class").each(increaseOpacity());
+//   console.log(this);
+//   // function increaseOpacity () {
+//   //   var currentOpacity = $(this).css('opacity');
+//   //   var opacity = (currentOpacity * 10 + 1)/10;
+//   //   $(image).css('opacity', opacity);
+//   // }
 // }
 //
-//
-// function increaseOpacity (element) {
-//
+// function makeInterval(){
+//     var date = new Date();
+//     var min = date.getMinutes();
+//     var sec = date.getSeconds();
+//     var nextHour =
+//     console.log(sec);
+//     if(min === '00' && sec === '00') {
+//       console.log("hello");
+//       darkenImages();
+//     } else {
+//       setTimeout(darkenImages(),(60*(60-min)+(60-sec))*1000);
+//     }
 // }
-
-//when you click this button, the closest image or the sibling with
-//the class image changes its css opacity properties
-
+//
+// makeInterval();
 
 // $('#profileButton').on('click', function(){
 //   $.get("/my-account", function(data) {
