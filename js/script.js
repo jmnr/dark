@@ -21,6 +21,10 @@ function sortFiles(a, b) {
   return 0;
 }
 
+function opacitySet(time) {
+  return new Date(new Date().getTime() - Number(time)).getHours() * 10;
+}
+
 function addID() {
   var ID = "";
   var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
