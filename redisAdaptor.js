@@ -36,9 +36,11 @@ else {
     read: function(db, callback) {
       var fileLoad = [];
       var len;
+      var dbindex;
+      var i;
+      var dblen;
 
       var cb = function(err, data) {
-        console.log("data:", data);
         fileLoad.push(data);
       };
 
@@ -47,10 +49,10 @@ else {
           if(err) {
             console.log(err);
           } else {
-            var dbindex = data[0];
+            dbindex = data[0];
             var files = data[1];
             len = files.length;
-            for(var i = 0; i < len; i++) {
+            for(i = 0; i < len; i++) {
               client.hgetall(files[i], cb);
             }
 

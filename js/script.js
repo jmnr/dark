@@ -51,7 +51,7 @@ var serverGrab = function() {
       accessDOM += addDivs(files[i]);
     }
     $("#imageContainer").html(accessDOM);
-    loveClick();
+    // loveClick();
   });
 
 };

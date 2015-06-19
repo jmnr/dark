@@ -72,7 +72,7 @@ function handlers() {
           var imageData = {
             time: new Date().getTime(),
             id: request.query.file_name,
-            googleid: request.auth.credentials.profile.id,
+            googleid: request.auth.credentials.id,
             imgURL: "https://s3-eu-west-1.amazonaws.com/dark-image-bucket/" + s3_params.Key
           };
           redis.create(imageData, function(err) {
@@ -89,8 +89,7 @@ function handlers() {
 
     loadImages: function(request, reply) {
       redis.read(0, function(data){
-        console.log("replying with files");
-        console.dir(JSON.stringify(data));
+        console.log("load images", data);
         reply(JSON.stringify(data));
       });
     },
