@@ -19,8 +19,8 @@ server.views({
 var authOptions = {
     provider: 'google',
     password: 'google-encryption-password', //Password used for encryption
-    clientId: '604932332741-irdehp8c2fq79d8netd6jbetkh05rt68.apps.googleusercontent.com',//'YourAppId',
-    clientSecret: 'sNWs4seCac0jzjK5vGlQjOpV',//'YourAppSecret',
+    clientId: process.env.GOOGLE_CLIENTID,//'YourAppId',
+    clientSecret: process.env.GOOGLE.CLIENT_SECRET,//'YourAppSecret',
     isSecure: false //means authentication can occur over http
 };
 
@@ -54,8 +54,8 @@ server.register(
 		    cookie: 'sid',
 		    password: '12345678',
 		    // redirectTo: '/', //this allows logout to work!
-        isSecure: false,
-        ttl: 3000  //expiry time of cookie
+        isSecure: false
+        // ttl: 3000  //expiry time of cookie
         // clearInvalid: true
 		});
 

@@ -37,7 +37,7 @@ module.exports = [
           strategy: 'session',
           mode: 'optional',
         },
-        handler: handlers.getProfilepage
+        handler: handlers.getProfilePage
         }
   },
   {
@@ -55,6 +55,9 @@ module.exports = [
     method: 'GET',
     path: '/logout',
     config: {
+      auth: {
+        mode: "optional"
+      },
       handler: handlers.logoutUser
     }
   },

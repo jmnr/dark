@@ -2,11 +2,18 @@ var redisAdaptor = function (config) {
   "use strict";
 
   var redis = config.connection;
+  var client;
   var url = require('url');
-  var redisURL = url.parse(process.env.REDIS_URL);
-  var client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
-  client.auth(redisURL.auth.split(":")[1]);
 
+  if(process.env.REDIS_URL) {
+    var redisURL = url.parse(process.env.REDIS_URL);
+    client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
+    client.auth(redisURL.auth.split(":")[1]);
+}
+
+else {
+  client = redis.createClient();
+}
   return {
     create: function(imageData, callback) {
       client.select(0, function() {

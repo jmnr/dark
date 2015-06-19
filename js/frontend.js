@@ -1,21 +1,23 @@
-
-  //hide these options if the user is not authenticated
-  // $("#loggedInContainer").hide();
-  // $("#postDiv").hide();
+// jQuery.support.cors =true;
+//   //hide these options if the user is not authenticated
+//   // $("#loggedInContainer").hide();
+//   // $("#postDiv").hide();
+// //
 //
-
 // $("#loginButton").on('click', function() {
 //   $.ajax({
 //     url: "/login",
-//     dataType: 'jsonp',
+//     // dataType: 'jsonp',
 //     xhrFields: {
-//       withCredentials: true
-//     }
+//       'withCredentials': true
+//     },
+//     crossDomain: true
 //   }).done (function(){
 //     $("#loggedInContainer").show();
 //     $("#loggedOutContainer").hide();
 //     });
 // // });
+
 // $(document).ready(function () {
 //   console.log("heyy");
 //   console.log($("#imageContainer").children());
@@ -60,12 +62,12 @@
 // }
 //
 // makeInterval();
-
+//
 // $('#profileButton').on('click', function(){
 //   $.get("/my-account", function(data) {
 //     //this endpoint will load the profile page
 //     ///retrieve images from redis and add them to the page
 //     //in the server, request.auth.session cookie stores the google email address so use
-//     // this to retrie images specific to the user
+//     // this to retrive images specific to the user
 //   });
 // });
