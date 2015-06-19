@@ -54,6 +54,11 @@ a {
   color: white;
 }
 
+.button:hover {
+  background-color: grey;
+  cursor: pointer;
+}
+
 #postDiv {
   padding-top: 50px;
   text-align: center;
@@ -156,13 +161,19 @@ a {
   border: none;
   color: white;
   font-size: 14px;
-  margin-top: 10px;
+  margin: 10px 0 3px 0;
+}
+
+.loveButton:hover {
+  background-color: grey;
+  cursor: pointer;
 }
 
 @media (max-width: 700px) {
 
   #content {
     margin: 30px;
+    padding: 10px;
   }
 
   #logo {
@@ -171,6 +182,16 @@ a {
 
   #imageContainer {
     padding: 5px;
+  }
+
+  .image {
+    height: 200px;
+    width: 200px;
+  }
+
+  .imageHolder {
+    height: 200px;
+    width: 200px;
   }
 
   .individualImageDiv {
