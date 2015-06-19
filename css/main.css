@@ -15,6 +15,10 @@ body {
   margin: 50px 100px;
 }
 
+a {
+  text-decoration: none;
+}
+
 /*header area*/
 
 #headerContainer {

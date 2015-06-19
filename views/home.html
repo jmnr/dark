@@ -21,18 +21,17 @@
         <div id="buttonsContainer">
           <div id="loggedOutContainer">
             <!-- <button class="button" id="loginButton">LOG IN</button> -->
-            <button><a href="/login"> Login with Google</a></button>
+            <button><a href="/login" class="button" id="loginButton">SIGN IN</a></button>
           </div>
 
           <div id="loggedInContainer">
             <button class="button" id="profileButton"><a href="/my-account">PROFILE</a></button>
+            <div id="postDiv">
+              <input type="file" id="file_input"/>
+              <p id="status">Please select a file</p>
+              <button id="submitUpload" class="button">POST A PHOTO</button>
+            </div>
           </div>
-        </div>
-
-        <div id="postDiv">
-          <input type="file" id="file_input"/>
-          <p id="status">Please select a file</p>
-          <button id="submitUpload" class="button">POST A PHOTO</button>
         </div>
       </div>
 
