@@ -59,7 +59,7 @@ function loveClick () {
     var loveCountString = $(countElement).html();
     var loveCount = parseInt(loveCountString);
     loveCount = loveCount + 1;
-    $(countElement).html(loveCount);
+    $(countElement).html(loveCount + " loves");
     var imageHolder = $(this).siblings()[0];
     var image = $(imageHolder).children()[0];
     var currentOpacity = $(image).css('opacity');
@@ -89,9 +89,9 @@ window.onload = function () {
     } else {
       $("#userContainer").append(
         '<div id="loggedOutContainer">' +
-          '<button><a href="/login">Login with Google</a></button>' +
+          '<button class="button" id="loginButton"><a href="/login">SIGN IN</a></button>' +
         '</div>'
-      );  
+      );
     }
   });
 
