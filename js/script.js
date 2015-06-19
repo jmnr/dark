@@ -2,8 +2,11 @@ $("#submitUpload").click(function() {
   var file = document.getElementById("file_input").files[0];
   if (file === null) {
     alert("Please select a file.");
+  } else if (false) {
+    alert("File is too large!");
   } else if (file.type === "image/jpeg" || file.type === "image/bmp" || file.type === "image/png") {
-    get_signed_request(file);
+    // get_signed_request(file);
+    alert(file.size);
   } else {
     alert("Invalid file type selected.");
   }
@@ -94,5 +97,6 @@ function upload_file(file, data){
   xhr.send(file);
   $("#status").fadeOut("slow", function() {
     $("#status").html("File uploaded successfully!").fadeIn("slow");
+    document.getElementById("file_input").value = null; //clears input to prevent the same image being submitted multiple times
   });
 }
