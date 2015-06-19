@@ -3,7 +3,7 @@ $("#submitUpload").click(function() {
   if (file === null) {
     alert("Please select a file.");
   } else if (file.type === "image/jpeg" || file.type === "image/bmp" || file.type === "image/png") {
-    get_signed_request(file);
+    alert(file.size);
   } else {
     alert("Invalid file type selected.");
   }
@@ -19,6 +19,10 @@ function sortFiles(a, b) {
     return -1;
   }
   return 0;
+}
+
+function opacitySet(time) {
+  return new Date(new Date().getTime() - Number(time)).getHours() * 10;
 }
 
 function addID() {

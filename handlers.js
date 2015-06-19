@@ -84,7 +84,7 @@ function handlers() {
     },
 
     loadImages: function(request, reply) {
-      redis.read(function(data){
+      redis.read(0, function(data){
         console.log("replying with files");
         reply(JSON.stringify(data));
       });
@@ -112,7 +112,7 @@ function handlers() {
     analyticsGet: function (request, reply) {
       var result = [];
 
-      redis.readAnalytics(function(data){
+      redis.read(1, function(data){
         reply.view("analytics", {total: data.length});
       });
     },
