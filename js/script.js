@@ -3,7 +3,7 @@ $("#submitUpload").click(function() {
   if (file === null) {
     alert("Please select a file.");
   } else if (file.type === "image/jpeg" || file.type === "image/bmp" || file.type === "image/png") {
-    alert(file.size);
+    get_signed_request(file);
   } else {
     alert("Invalid file type selected.");
   }
