@@ -4,7 +4,7 @@ var Hapi = require('hapi'),
     Good = require('good'),
     Bell = require('bell'),
     AuthCookie = require('hapi-auth-cookie'),
-    server = new Hapi.Server({debug: {request: ['error']}});
+    server = new Hapi.Server();
 
 server.connection({ port: 8000 });
 
