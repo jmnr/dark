@@ -69,6 +69,37 @@ function loveClick () {
 
 window.onload = function () {
   serverGrab();
+
+  $.get('/isLoggedIn', function(data) {
+    if(data) {
+      $("#userContainer").append(
+        '<div id="loggedInContainer">' +
+          '<div id="buttonsContainer">' +
+            '<button class="button" id="logoutButton"><a href="/logout">LOGOUT</a></button>' +
+            '<button class="button" id="profileButton"><a href="/my-account">PROFILE</a></button>' +
+            '<div id="postDiv">' +
+              '<input type="file" id="file_input"/>' +
+              '<p id="status">Please select a file</p>' +
+              '<button id="submitUpload" class="button">POST A PHOTO</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>'
+      );
+    } else {
+      $("#userContainer").append(
+        '<div id="loggedOutContainer">' +
+          '<button><a href="/login">Login with Google</a></button>' +
+        '</div>'
+      );  
+    }
+  });
+
+  // if(loggedIn) {
+  //   $("#headerContainer").append(
+  //     '<div id="postDiv"><input type="file" id="file_input"/><p id="status">Please select a file</p><button id="submitUpload" class="button">POST A PHOTO</button></div>'
+  //   );
+  // }
+
 };
 
 function get_signed_request(file){
