@@ -38,6 +38,7 @@ else {
       var len;
 
       var cb = function(err, data) {
+        console.log("data:", data);
         fileLoad.push(data);
       };
 
