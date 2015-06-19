@@ -79,8 +79,8 @@ window.onload = function () {
       $("#userContainer").append(
         '<div id="loggedInContainer">' +
           '<div id="buttonsContainer">' +
-            '<button class="button" id="logoutButton"><a href="/logout">LOGOUT</a></button>' +
             '<button class="button" id="profileButton"><a href="/my-account">PROFILE</a></button>' +
+            '<button class="button" id="logoutButton"><a href="/logout">LOGOUT</a></button>' +
             '<div id="postDiv">' +
               '<input type="file" id="file_input"/>' +
               '<p id="status">Please select a file</p>' +
