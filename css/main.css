@@ -1,6 +1,6 @@
 /*general*/
-/*
-* {
+
+/** {
   border: solid black 1px;
 }*/
 
@@ -24,13 +24,17 @@ a {
 #headerContainer {
   border-bottom-color: #edeeee;
   border-bottom-width: 1px;
-  padding: 50px;
+  padding: 50px 50px 0 50px;
 }
 
 #header {
   color: black;
   padding-bottom: 20px;
   text-align: center;
+}
+
+#logo {
+  max-width: 300px;
 }
 
 #buttonsContainer {
@@ -44,6 +48,10 @@ a {
   display: inline-block;
   font-size: 16px;
   padding: 5px 10px;
+}
+
+#loginButton > a {
+  color: white;
 }
 
 #postDiv {
@@ -157,8 +165,8 @@ a {
     margin: 30px;
   }
 
-  #header > img {
-    width: 300px;
+  #logo {
+    max-width: 200px;
   }
 
   #imageContainer {

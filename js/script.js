@@ -85,9 +85,9 @@ window.onload = function () {
     } else {
       $("#userContainer").append(
         '<div id="loggedOutContainer">' +
-          '<button><a href="/login">Login with Google</a></button>' +
+          '<button class="button" id="loginButton"><a href="/login">SIGN IN</a></button>' +
         '</div>'
-      );  
+      );
     }
   });
 
