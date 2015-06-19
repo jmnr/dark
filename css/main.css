@@ -33,7 +33,7 @@ a {
   text-align: center;
 }
 
-#logo {
+.logo {
   max-width: 300px;
 }
 
@@ -67,6 +67,28 @@ a {
 #homeButton {
   text-align: center;
 }
+
+#homeButton > a {
+  color: white;
+}
+
+#profileButton {
+  margin: 5px;
+}
+
+#profileButton > a {
+  color: white;
+}
+
+#logoutButton {
+  margin: 5px;
+}
+
+#logoutButton > a {
+  color: white;
+  margin: 5px;
+}
+
 /*images*/
 
 #imageContainer {
@@ -176,7 +198,7 @@ a {
     padding: 10px;
   }
 
-  #logo {
+  .logo {
     max-width: 200px;
   }
 
