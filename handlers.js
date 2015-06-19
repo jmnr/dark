@@ -68,7 +68,7 @@ function handlers() {
           var imageData = {
             time: new Date().getTime(),
             id: request.query.file_name,
-            username: request.auth.credentials,
+            googleid: request.auth.credentials.profile.id,
             imgURL: "https://s3-eu-west-1.amazonaws.com/dark-image-bucket/" + s3_params.Key
           };
           redis.create(imageData, function(err) {
@@ -118,8 +118,7 @@ function handlers() {
     },
 
     isLoggedIn: function (request, reply) {
-      console.log("is this working", request.auth.credentials);
-       reply(request.auth.credentials);
+      reply(request.auth.credentials);
     }
 
   };
