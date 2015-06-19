@@ -24,41 +24,28 @@ var authOptions = {
     isSecure: false //means authentication can occur over http
 };
 
-
-// module.exports = {
-//   reporters: [{
-//     reporter: require('good-http'),
-//     events: { request: '*' },
-//     config: {
-//       endpoint : 'http://localhost:3000/analytics',
-//       threshold: 0
-//       // ,wreck: {
-//       //     headers: { 'x-api-key' : 12345 }
-//       //     }
-//     }
-//   }]
-// };
-
 //register plugins with server
-server.register([{register: Good, options: {
-  reporters: [{
-    reporter: require('good-http'),
-    events: { request: '*' },
-    config: {
-      endpoint : 'http://localhost:8000/analytics',
-      threshold: 0
-      // ,wreck: {
-      //     headers: { 'x-api-key' : 12345 }
-      //     }
+server.register(
+  [{
+    register: Good,
+    options: {
+      reporters: [{
+        reporter: require('good-http'),
+        events: { request: '*' },
+        config: {
+          endpoint : 'http://localhost:8000/analytics',
+          threshold: 0
+        }
+      }]
     }
-  }]
-  }},
+  },
   { register: Bell},
-  { register: AuthCookie}],
+  { register: AuthCookie}
+  ],
 
   function (err) {
     if (err) {
-        throw err; // something bad happened loading the plugin
+      throw err; // something bad happened loading the plugin
     }
 
     server.auth.strategy("google", 'bell', authOptions);

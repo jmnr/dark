@@ -1,5 +1,3 @@
-console.log("working");
-
 
   //hide these options if the user is not authenticated
   // $("#loggedInContainer").hide();
