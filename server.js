@@ -55,7 +55,7 @@ server.register(
 		    password: '12345678',
 		    // redirectTo: '/', //this allows logout to work!
         isSecure: false,
-        ttl: 3000  //expiry time of cookie
+        // ttl: 3000  //expiry time of cookie
         // clearInvalid: true
 		});
 
