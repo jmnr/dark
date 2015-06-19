@@ -6,7 +6,7 @@ var Hapi = require('hapi'),
     AuthCookie = require('hapi-auth-cookie'),
     server = new Hapi.Server({debug: {request: ['error']}});
 
-server.connection({ port: process.env.PORT });
+server.connection({ port: 8000 });
 
 // serves up views (html template pages)
 server.views({

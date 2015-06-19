@@ -55,7 +55,7 @@ function loveClick () {
     var loveCountString = $(countElement).html();
     var loveCount = parseInt(loveCountString);
     loveCount = loveCount + 1;
-    $(countElement).html(loveCount);
+    $(countElement).html(loveCount + " loves");
     var imageHolder = $(this).siblings()[0];
     var image = $(imageHolder).children()[0];
     var currentOpacity = $(image).css('opacity');
