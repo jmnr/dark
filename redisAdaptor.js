@@ -33,55 +33,38 @@ else {
       );
     }, //database 1 is for analytics
 
-    read: function(callback) {
+    read: function(db, callback) {
       var fileLoad = [];
       var len;
 
       var cb = function(err, data) {
+        console.log("data:", data);
         fileLoad.push(data);
-        if(fileLoad.length === len) {
-          callback(fileLoad);
-        }
       };
 
-      client.select(0, function() {
-        client.scan(0, function(err, data) {
+      var scan = function(x) {
+        client.scan(x, function(err, data) {
           if(err) {
             console.log(err);
           } else {
+            var dbindex = data[0];
             var files = data[1];
             len = files.length;
             for(var i = 0; i < len; i++) {
               client.hgetall(files[i], cb);
             }
-          }
-        });
-      });
-    },
 
-    readAnalytics: function(callback) {
-      var fileLoad = [];
-      var len;
-
-      var cb = function(err, data) {
-        fileLoad.push(data);
-        if(fileLoad.length === len) {
-          callback(fileLoad);
-        }
-      };
-
-      client.select(1, function() {
-        client.scan(0, function(err, data) {
-          if(err) {
-            console.log(err);
-          } else {
-            var files = data[1];
-            len = files.length;
-            for(var i = 0; i < len; i++) {
-              client.hgetall(files[i], cb);
+            if(dbindex === "0") {
+              callback(fileLoad);
+            } else {
+              scan(dbindex);
             }
           }
         });
+      };
+
+      client.select(db, function() {
+        scan(0);
       });
     },
 

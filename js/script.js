@@ -1,7 +1,10 @@
-$("#submitUpload").click(function() {
+$('body').on('click','#submitUpload', function() {
   var file = document.getElementById("file_input").files[0];
   if (file === null) {
     alert("Please select a file.");
+  } else if (file.size > 2500000) {
+    alert("File is too large! Choose a picture less than 2.5MB!");
+    document.getElementById("file_input").value = null;
   } else if (file.type === "image/jpeg" || file.type === "image/bmp" || file.type === "image/png") {
     get_signed_request(file);
   } else {
@@ -19,6 +22,10 @@ function sortFiles(a, b) {
     return -1;
   }
   return 0;
+}
+
+function opacitySet(time) {
+  return new Date(new Date().getTime() - Number(time)).getHours() * 10;
 }
 
 function addID() {
@@ -125,5 +132,6 @@ function upload_file(file, data){
   xhr.send(file);
   $("#status").fadeOut("slow", function() {
     $("#status").html("File uploaded successfully!").fadeIn("slow");
+    document.getElementById("file_input").value = null; //clears input to prevent the same image being submitted multiple times
   });
 }
