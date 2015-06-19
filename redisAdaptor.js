@@ -36,6 +36,33 @@ else {
     read: function(db, callback) {
       var fileLoad = [];
       var len;
+      db = 0;
+
+      var cb = function(err, data) {
+        fileLoad.push(data);
+        if(fileLoad.length === len) {
+          callback(fileLoad);
+        }
+      };
+
+      client.select(0, function() {
+        client.scan(0, function(err, data) {
+          if(err) {
+            console.log(err);
+          } else {
+            var files = data[1];
+            len = files.length;
+            for(var i = 0; i < len; i++) {
+              client.hgetall(files[i], cb);
+            }
+          }
+        });
+      });
+    },
+
+    readx: function(db, callback) {
+      var fileLoad = [];
+      var len;
       var dbindex;
       var i;
       var dblen;
