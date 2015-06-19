@@ -18,7 +18,6 @@ emailAlert.sendEmail = function(request) {
          'html': "Are you going through an existential crisis? We are here to help. "
 };
   mandrill_client.messages.send({"message": data, "async": false},function(result) {
-    console.log(result);
   }, function(e) {
      console.log("Error " + e.message);
   });

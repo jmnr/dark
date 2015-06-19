@@ -8,7 +8,6 @@ function handlers() {
     displayHome: function(request, reply) {
       if (request.auth.isAuthenticated) {
         request.log('analytics request is being sent');
-        // console.log(request.auth.credentials);
         reply.view('home', {
           name: request.auth.credentials.name.first
         });
@@ -24,7 +23,12 @@ function handlers() {
     getProfilePage: function(request, reply) {
       request.log('analytics request is being sent');
       if(request.auth.isAuthenticated) {
-        reply.view('profile');
+
+        // redis.read(function(data) {
+        //   console.dir(JSON.stringify(data));
+        //   reply.view('profile');
+        // });
+
       }
       else {
         reply.redirect("/").code(401);
@@ -34,8 +38,8 @@ function handlers() {
     loginUser: function(request, reply) {
       request.log('analytics request is being sent');
       if(request.auth.isAuthenticated) {
-        console.log(request.auth.credentials.profile.email);
-        console.log(request.auth.credentials.profile.name.first);
+        // console.log(request.auth.credentials.profile.email);
+        // console.log(request.auth.credentials.profile.name.first);
         mandrill.sendEmail(request);
         request.auth.session.set(request.auth.credentials.profile);
         reply.redirect('/my-account');
@@ -86,6 +90,7 @@ function handlers() {
     loadImages: function(request, reply) {
       redis.read(function(data){
         console.log("replying with files");
+        console.dir(JSON.stringify(data));
         reply(JSON.stringify(data));
       });
     },

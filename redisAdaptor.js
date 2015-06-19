@@ -34,10 +34,12 @@ else {
     }, //database 1 is for analytics
 
     read: function(callback) {
+      console.log("entered read");
       var fileLoad = [];
       var len;
 
       var cb = function(err, data) {
+        console.log("data:", data);
         fileLoad.push(data);
         if(fileLoad.length === len) {
           callback(fileLoad);

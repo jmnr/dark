@@ -1,12 +1,12 @@
-$("#submitUpload").click(function() {
+$('body').on('click','#submitUpload', function() {
   var file = document.getElementById("file_input").files[0];
   if (file === null) {
     alert("Please select a file.");
-  } else if (false) {
-    alert("File is too large!");
+  } else if (file.size > 2500000) {
+    alert("File is too large! Choose a picture less than 2.5MB!");
+    document.getElementById("file_input").value = null;
   } else if (file.type === "image/jpeg" || file.type === "image/bmp" || file.type === "image/png") {
-    // get_signed_request(file);
-    alert(file.size);
+    get_signed_request(file);
   } else {
     alert("Invalid file type selected.");
   }
@@ -90,7 +90,7 @@ window.onload = function () {
         '<div id="loggedOutContainer">' +
           '<button><a href="/login">Login with Google</a></button>' +
         '</div>'
-      );  
+      );
     }
   });
 
