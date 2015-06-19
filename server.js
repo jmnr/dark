@@ -20,7 +20,7 @@ var authOptions = {
     provider: 'google',
     password: 'google-encryption-password', //Password used for encryption
     clientId: process.env.GOOGLE_CLIENTID,//'YourAppId',
-    clientSecret: process.env.GOOGLE.CLIENTSECRET,//'YourAppSecret',
+    clientSecret: process.env.GOOGLE_CLIENTSECRET,//'YourAppSecret',
     isSecure: false //means authentication can occur over http
 };
 
