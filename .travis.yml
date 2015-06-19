@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - "0.10"
+addons:
+  code_climate:
+    repo_token: 0ef2e0f3d6ec9e9bb1290148beae8fb0ded688491409e35b6e7ce790c2c860f8
+services:
+  - redis-server
+script:
+  - npm test
+  - npm run coverage
+after_success:
+  - npm run codeclimate

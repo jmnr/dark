@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/static/css/main.css">
-    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon"/> 
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon"/>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600" rel="stylesheet" type="text/css">
     <meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0"/>
   </head>
@@ -20,19 +20,19 @@
 
         <div id="buttonsContainer">
           <div id="loggedOutContainer">
-            <button class="button" id="loginButton">LOG IN</button>
+            <!-- <button class="button" id="loginButton">LOG IN</button> -->
+            <button><a href="/login"> Login with Google</a></button>
           </div>
-          
+
           <div id="loggedInContainer">
-            <button class="button" id="profileButton">PROFILE</button>
-            <button class="button" id="postButton">POST</button>
+            <button class="button" id="profileButton"><a href=/my-account>PROFILE</a></button>
           </div>
         </div>
 
         <div id="postDiv">
           <input type="file" id="file_input"/>
           <p id="status">Please select a file</p>
-          <button id="submitUpload" class="button">Upload</button>
+          <button id="submitUpload" class="button">POST A PHOTO</button>
         </div>
       </div>
 

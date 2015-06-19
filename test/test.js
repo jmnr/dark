@@ -11,7 +11,7 @@ fs.readFile('views/home.html', function(err,data){
 });
 
 var testImage;
-fs.readFile('images/square.png', function(err,data){
+fs.readFile('images/dark.png', function(err,data){
   testImage = data.toString();
 });
 
@@ -30,7 +30,7 @@ lab.experiment("Basic HTTP requests", function() {
     lab.test("GET request to /static/{path*} serves the correct image", function(done) {
         var options = {
             method: "GET",
-            url: "/static/images/square.png"
+            url: "/static/images/dark.png"
         };
         server.inject(options, function(response) {
             Code.expect(response.statusCode).to.equal(200);  //  Expect http response status code to be 200 ("Ok")
@@ -44,18 +44,50 @@ lab.experiment("Basic HTTP requests", function() {
             url: "/login"
         };
         server.inject(options, function(response) {
+          Code.expect(response.headers.location).to.contain('https://accounts.google.com/o/oauth2'); //user is redirected to their google account for authentication
           Code.expect(response.statusCode).to.equal(302);
             done();
         });
     });
-    lab.test("GET request to /my-account sends back a 401 error if the user is not logged in", function(done) {
+    lab.test("GET request to /my-account sends back a 401 status code if the user is not logged in (unauthorised)", function(done) {
         var options = {
             method: "GET",
             url: "/my-account"
         };
         server.inject(options, function(response) {
+          Code.expect(response.headers.location).to.equal('/');  //redirect user to home page if not logged in
           Code.expect(response.statusCode).to.equal(401);
             done();
         });
     });
+    lab.test("GET request to /logout sends back a 200 status code", function(done) {
+        var options = {
+            method: "GET",
+            url: "/logout"
+        };
+        server.inject(options, function(response) {
+          Code.expect(response.headers.location).to.equal('/'); // redirect user to home page
+          Code.expect(response.statusCode).to.equal(302);
+            done();
+        });
+    });
+    // lab.test("GET request to /my-account", function(done) {
+    //     var options = {
+    //         method: "GET",
+    //         url: "/my-account",
+    //         auth: {
+    //           isAuthenticated: true,
+    //           credentials: {
+    //             name: {
+    //               first: "nikki"
+    //             }
+    //           }
+    //         }
+    //     };
+    //     server.inject(options, function(response) {
+    //       // Code.expect(response.headers.location).to.equal('/'); // redirect user to home page
+    //       Code.expect(response.statusCode).to.equal(200);
+    //         done();
+    //     });
+    // });
 });

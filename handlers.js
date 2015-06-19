@@ -20,7 +20,7 @@ function handlers() {
      }
     },
 
-    getProfilepage: function(request, reply) {
+    getProfilePage: function(request, reply) {
       request.log('analytics request is being sent');
       if(request.auth.isAuthenticated) {
         reply.view('profile');
@@ -34,7 +34,7 @@ function handlers() {
       request.log('analytics request is being sent');
       if(request.auth.isAuthenticated) {
         request.auth.session.set(request.auth.credentials.profile);
-        reply.redirect('/');
+        reply.redirect('/my-account');
       } else
       {
         reply.redirect("/").code(401);

@@ -1,6 +1,11 @@
 # Dark
 ## An image aggregator where unloved pictures darken over time.
 
+[![Code Climate](https://codeclimate.com/github/jmnr/dark/badges/gpa.svg)](https://codeclimate.com/github/jmnr/dark)
+[![Test Coverage](https://codeclimate.com/github/jmnr/dark/badges/coverage.svg)](https://codeclimate.com/github/jmnr/dark/coverage)
+[![Dependency Status](https://david-dm.org/jmnr/dark.svg)](https://david-dm.org/jmnr/dark)
+[![devDependency Status](https://david-dm.org/jmnr/dark/dev-status.svg)](https://david-dm.org/jmnr/dark#info=devDependencies)
+
 ##Why would I want to use this?
 
 Because goths need their own instagram.
