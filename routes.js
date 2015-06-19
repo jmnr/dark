@@ -53,6 +53,16 @@ module.exports = [
   },
   {
     method: 'GET',
+    path: '/isLoggedIn',
+    config: {
+        auth: {
+          mode: "try"
+        },
+        handler: handlers.isLoggedIn
+      }
+  },
+  {
+    method: 'GET',
     path: '/logout',
     config: {
       auth: {
