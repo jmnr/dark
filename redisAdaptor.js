@@ -5,15 +5,16 @@ var redisAdaptor = function (config) {
   var client;
   var url = require('url');
 
-  if(process.env.REDIS_URL) {
+  if(process.env.REDIS_CHECK === "local") {
+    client = redis.createClient();
+  } else if (process.env.REDIS_URL) {
     var redisURL = url.parse(process.env.REDIS_URL);
     client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
     client.auth(redisURL.auth.split(":")[1]);
-}
+  } else {
+    client = redis.createClient();
+  }
 
-else {
-  client = redis.createClient();
-}
   return {
     create: function(imageData, callback) {
       client.select(0, function() {
@@ -35,40 +36,17 @@ else {
 
     read: function(db, callback) {
       var fileLoad = [];
-      var len;
-      db = 0;
+      var dbKeys =[];
 
-      var cb = function(err, data) {
-        fileLoad.push(data);
-        if(fileLoad.length === len) {
-          callback(fileLoad);
-        }
-      };
-
-      client.select(0, function() {
-        client.scan(0, function(err, data) {
-          if(err) {
-            console.log(err);
-          } else {
-            var files = data[1];
-            len = files.length;
-            for(var i = 0; i < len; i++) {
-              client.hgetall(files[i], cb);
-            }
+      var redisCallback = function(err, data) {
+        if(err) {
+          console.log(err);
+        } else {
+          fileLoad.push(data);
+          if(fileLoad.length === dbKeys.length) {
+            callback(fileLoad);
           }
-        });
-      });
-    },
-
-    readx: function(db, callback) {
-      var fileLoad = [];
-      var len;
-      var dbindex;
-      var i;
-      var dblen;
-
-      var cb = function(err, data) {
-        fileLoad.push(data);
+        }
       };
 
       var scan = function(x) {
@@ -76,17 +54,13 @@ else {
           if(err) {
             console.log(err);
           } else {
-            dbindex = data[0];
-            var files = data[1];
-            len = files.length;
-            for(i = 0; i < len; i++) {
-              client.hgetall(files[i], cb);
-            }
-
-            if(dbindex === "0") {
-              callback(fileLoad);
+            dbKeys = dbKeys.concat(data[1]);
+            if(data[0] === "0") {
+              for(var i = 0; i < dbKeys.length; i++) {
+                client.hgetall(dbKeys[i], redisCallback);
+              }
             } else {
-              scan(dbindex);
+              scan(data[0]);
             }
           }
         });

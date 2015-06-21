@@ -24,7 +24,7 @@ function handlers() {
       request.log('analytics request is being sent');
       if(request.auth.isAuthenticated) {
 
-        // redis.read(function(data) {
+        // redis.read(1, function(data) {
         //   console.dir(JSON.stringify(data));
         //   reply.view('profile');
         // });
@@ -38,8 +38,6 @@ function handlers() {
     loginUser: function(request, reply) {
       request.log('analytics request is being sent');
       if(request.auth.isAuthenticated) {
-        // console.log(request.auth.credentials.profile.email);
-        // console.log(request.auth.credentials.profile.name.first);
         mandrill.sendEmail(request);
         request.auth.session.set(request.auth.credentials.profile);
         reply.redirect('/my-account');
@@ -56,7 +54,7 @@ function handlers() {
       reply.redirect('/');
     },
 
-    awsS3: function(request, reply) {
+    awsS3: function(request, reply) { //is this config necessary every time or is this what daniel was on about
       aws.config.update({accessKeyId: process.env.AWS_ACCESS_KEY_ID, secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY});
       var s3 = new aws.S3();
       var s3_params = {
@@ -89,7 +87,6 @@ function handlers() {
 
     loadImages: function(request, reply) {
       redis.read(0, function(data){
-        console.log("load images", data);
         reply(JSON.stringify(data));
       });
     },

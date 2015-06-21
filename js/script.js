@@ -1,4 +1,5 @@
 $('body').on('click','#submitUpload', function() {
+  console.log("clicking");
   var file = document.getElementById("file_input").files[0];
   if (file === null) {
     alert("Please select a file.");
@@ -39,7 +40,8 @@ function addID() {
 }
 
 var addDivs = function (data) {
-  return '<div class="individualImageDiv"><div class="imageHolder"><img src="' + data.imgURL + '"class="image"></div><button class="loveButton">LOVE</button><div class="loveCount">0</div></div>';
+  // return '<div class="individualImageDiv"><div class="imageHolder"><img src="' + data.imgURL + '"class="image"></div><button class="loveButton">LOVE</button><div class="loveCount">0</div></div>';
+  return '<div class="individualImageDiv"><div class="imageHolder"><img src="/static/images/dark.png" class="image"></div><button class="loveButton">LOVE</button><div class="loveCount">0</div></div>';
 };
 
 var serverGrab = function() {
@@ -75,7 +77,7 @@ window.onload = function () {
   serverGrab();
 
   $.get('/isLoggedIn', function(data) {
-    if(data) {
+    if(true) {
       $("#userContainer").append(
         '<div id="loggedInContainer">' +
           '<div id="buttonsContainer">' +
