@@ -1,8 +1,6 @@
 var fs = require('fs');
 var Path = require('path');
 var handlers = require('./handlers.js')();
-var level = require('level');
-var db = level('./mydb');
 
 module.exports = [
   { //home page
