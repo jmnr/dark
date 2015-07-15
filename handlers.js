@@ -1,57 +1,50 @@
-var aws = require('aws-sdk');
-var redis = require('./redisAdaptor.js')({connection: require('redis')});
-var mandrill = require('./mandrill.js');
+var aws = require('aws-sdk'),
+    redis = require('./redisAdaptor.js')({connection: require('redis')}),
+    mandrill = require('./mandrill.js');
 
 function handlers() {
   return {
 
     displayHome: function(request, reply) {
       if (request.auth.isAuthenticated) {
-        request.log('analytics request is being sent');
+        // request.log('analytics request is being sent');
         reply.view('home', {
           name: request.auth.credentials.name.first
         });
-      }
-      else {
-        request.log('analytics request is being sent');
+        // reply("true");
+      } else {
+        // request.log('analytics request is being sent');
         reply.view('home', {
-        name: 'stranger!'
-      });
+          name: 'stranger!'
+        });
      }
     },
 
     getProfilePage: function(request, reply) {
-      request.log('analytics request is being sent');
+      // request.log('analytics request is being sent');
       if(request.auth.isAuthenticated) {
-
-        // redis.read(1, function(data) {
-        //   console.dir(JSON.stringify(data));
-        //   reply.view('profile');
-        // });
-
+        reply.view('profile', {name: request.auth.credentials.name.first});
       }
       else {
-        reply.redirect("/").code(401);
+        reply.redirect("/");
       }
     },
 
     loginUser: function(request, reply) {
-      request.log('analytics request is being sent');
       if(request.auth.isAuthenticated) {
-        mandrill.sendEmail(request);
+        // mandrill.sendEmail(request);
         request.auth.session.set(request.auth.credentials.profile);
-        reply.redirect('/my-account');
-      } else
-      {
-        reply.redirect("/").code(401);
+        reply.redirect("/");
+      } else {
+        reply.redirect("/");
       }
 
     },
 
     logoutUser: function(request,reply) {
-      request.log('analytics request is being sent');
+      // request.log('analytics request is being sent');
       request.auth.session.clear();
-      reply.redirect('/');
+      reply.redirect("/");
     },
 
     awsS3: function(request, reply) { //is this config necessary every time or is this what daniel was on about
@@ -65,7 +58,7 @@ function handlers() {
       };
       s3.getSignedUrl('putObject', s3_params, function(err, data){
         if(err){
-          console.log("err",err);
+          console.log("err", err);
         } else {
           var imageData = {
             time: new Date().getTime(),
@@ -77,7 +70,7 @@ function handlers() {
             if (err)
               {console.log(err);}
             else {
-              console.log("added to redis");
+              console.log("redis success!");
           }
           });
           reply(data);
@@ -85,7 +78,13 @@ function handlers() {
       });
     },
 
-    loadImages: function(request, reply) {
+    getHomepageImages: function(request, reply) {
+      redis.read(0, function(data){
+        reply(JSON.stringify(data));
+      });
+    },
+
+    getProfileImages: function(request, reply) {
       redis.read(0, function(data){
         reply(JSON.stringify(data));
       });

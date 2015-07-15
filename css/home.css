@@ -1,0 +1,247 @@
+/*general*/
+
+/** {
+  border: solid black 1px;
+}*/
+
+body {
+  background-color: #262626;
+  border: none;
+  font-family: Source Sans Pro;
+}
+
+#content {
+  background-color: white;
+  margin: 50px 100px;
+}
+
+a {
+  text-decoration: none;
+}
+
+/*header area*/
+
+#headerContainer {
+  border-bottom-color: #edeeee;
+  border-bottom-width: 1px;
+  padding: 50px 50px 0 50px;
+}
+
+#header {
+  color: black;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.logo {
+  max-width: 300px;
+}
+
+#buttonsContainer {
+  text-align: center;
+}
+
+.button {
+  background-color: black;
+  border: none;
+  color: white;
+  display: inline-block;
+  font-size: 16px;
+  padding: 5px 10px;
+}
+
+#loginButton > a {
+  color: white;
+}
+
+.button:hover {
+  background-color: grey;
+  cursor: pointer;
+}
+
+#postDiv {
+  padding-top: 50px;
+  text-align: center;
+}
+
+#homeButton {
+  text-align: center;
+}
+
+#homeButton > a {
+  color: white;
+}
+
+#profileButton {
+  margin: 5px;
+}
+
+#profileButton > a {
+  color: white;
+}
+
+#logoutButton {
+  margin: 5px;
+}
+
+#logoutButton > a {
+  color: white;
+  margin: 5px;
+}
+
+/*images*/
+
+#imageContainer {
+  padding: 20px 20px;
+  text-align: center;
+}
+
+.image {
+  /*opacity:.1;*/
+  object-fit: cover;
+  object-position: center;
+  /*-webkit-filter: grayscale(20%);*/
+  /*filter: grayscale(20%);*/
+  height: 250px;
+  width: 250px;
+}
+
+.imageHolder {
+  background-color: black;
+  height: 250px;
+  width: 250px;
+  margin: 0;
+  padding: 0;
+}
+
+.individualImageDiv {
+  background-color: #FFFFFF;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.25);
+  -moz-box-shadow: 0 5px 10px rgba(0,0,0,.25);
+  box-shadow: 0 5px 10px rgba(0,0,0,.25);
+  color: black;
+  display: inline-block;
+  margin: 20px;
+  padding: 20px 20px 70px 20px;
+  -ms-interpolation-mode: bicubic;
+  -webkit-transform: rotate(-2deg);
+  -moz-transform: rotate(-2deg);
+  -ms-transform: rotate(-2deg);
+  -o-transform: rotate(-2deg);
+  transform: rotate(-2deg);
+  -webkit-transition: -webkit-transform .15s linear;
+  -moz-transition: -moz-transform .15s linear;
+  -o-transition: -o-transform .15s linear;
+}
+
+.individualImageDiv:nth-child(odd) {
+  -webkit-transform: rotate(2deg);
+  -moz-transform: rotate(2deg);
+  -ms-transform: rotate(2deg);
+  -o-transform: rotate(2deg);
+  transform: rotate(2deg);
+}
+
+.individualImageDiv:nth-child(4n) {
+  position: relative;
+  -webkit-transform: rotate(-1deg);
+  -moz-transform: rotate(-1deg);
+  -ms-transform: rotate(-1deg);
+  -o-transform: rotate(-1deg);
+  transform: rotate(-1deg)
+  top: -5px;
+}
+
+.individualImageDiv:nth-child(5n) {
+  -webkit-transform: rotate(3deg);
+  -moz-transform: rotate(3deg);
+  -ms-transform: rotate(3deg);
+  -o-transform: rotate(3deg);
+  transform: rotate(3deg);
+  position: relative;
+  right: 5px;
+}
+
+.individualImageDiv:hover {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(1.1);
+  -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.5);
+  -moz-box-shadow: 0 3px 6px rgba(0,0,0,.5);
+  -ms-box-shadow: 0 3px 6px rgba(0,0,0,.5);
+  -o-box-shadow: 0 3px 6px rgba(0,0,0,.5);
+  box-shadow: 0 3px 6px rgba(0,0,0,.5);
+  position: relative;
+}
+
+/*love button*/
+
+.loveButton {
+  background: black;
+  border: none;
+  color: white;
+  font-size: 14px;
+  margin: 10px 0 3px 0;
+}
+
+.loveButton:hover {
+  background-color: grey;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+
+  #content {
+    margin: 30px;
+    padding: 10px;
+  }
+
+  .logo {
+    max-width: 200px;
+  }
+
+  #imageContainer {
+    padding: 5px;
+  }
+
+  .image {
+    height: 200px;
+    width: 200px;
+  }
+
+  .imageHolder {
+    height: 200px;
+    width: 200px;
+  }
+
+  .individualImageDiv {
+    margin: 20px 5px;
+  }
+
+  .individualImageDiv:nth-child(odd) {
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    transform: none;
+  }
+
+  .individualImageDiv:nth-child(even) {
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    transform: none;
+  }
+
+  .individualImageDiv:hover {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+  }
+
+}
