@@ -20,6 +20,13 @@ var redisAdaptor = function (config) {
       client.select(0, function() {
           client.hmset(imageData.id, imageData, function(err){
             callback(err);
+            client.quit(function(err, data) {
+              if (err) {
+                console.log(err);
+              } else {
+                // console.log('client quit:', data);
+              }
+            });
           });
         }
       );
@@ -29,6 +36,13 @@ var redisAdaptor = function (config) {
       client.select(1, function() {
           client.hmset(data.time, data, function(err){
             callback(err);
+            client.quit(function(err, data) {
+              if (err) {
+                console.log(err);
+              } else {
+                // console.log('client quit:', data);
+              }
+            });
           });
         }
       );
@@ -45,6 +59,13 @@ var redisAdaptor = function (config) {
           fileLoad.push(data);
           if(fileLoad.length === dbKeys.length) {
             callback(fileLoad);
+            client.quit(function(err, data) {
+              if (err) {
+                console.log(err);
+              } else {
+                // console.log('client quit:', data);
+              }
+            });
           }
         }
       };
@@ -74,6 +95,13 @@ var redisAdaptor = function (config) {
     delete: function(time, callback) {
       client.del(time, function(err, reply) {
         callback(reply);
+        client.quit(function(err, data) {
+          if (err) {
+            console.log(err);
+          } else {
+            // console.log('client quit:', data);
+          }
+        });
       });
     }
 
