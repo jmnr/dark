@@ -2,7 +2,7 @@ var Hapi = require('hapi'),
     fs = require('fs'),
     Path = require('path'),
     Good = require('good'),
-    Bell = require('bell'),
+    Bell = require('fixed-bell'),
     AuthCookie = require('hapi-auth-cookie'),
     server = new Hapi.Server({debug: {request: ['error']}});
 
@@ -17,11 +17,11 @@ server.views({
 });
 
 var authOptions = {
-    provider: 'google',
-    password: 'google-encryption-password', //Password used for encryption
-    clientId: process.env.GOOGLE_CLIENTID,//'YourAppId',
-    clientSecret: process.env.GOOGLE_CLIENTSECRET,//'YourAppSecret',
-    isSecure: false //means authentication can occur over http
+  provider: 'google',
+  password: process.env.ENC_PW, //Password used for encryption
+  clientId: process.env.CLIENTID,//'YourAppId',
+  clientSecret: process.env.CLIENTSECRET,//'YourAppSecret',
+  isSecure: false //means authentication can occur over http
 };
 
 //register plugins with server
@@ -67,8 +67,7 @@ server.register(
 );
 
 server.start(function () {
-    server.log('Server running at: ' + server.info.uri);
+  console.log('Server running at: ' + server.info.uri);
 });
-
 
 module.exports = server;

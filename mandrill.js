@@ -1,26 +1,26 @@
 var mandrill = require("mandrill-api/mandrill");
-var mandrill_client = new mandrill.Mandrill(process.env.SECRET);
+var mandrillClient = new mandrill.Mandrill(process.env.MANDRILL_API);
 
-var emailAlert = {};
-emailAlert.sendEmail = function(request) {
-  var data = {
+var emailAlert = {
+  sendEmail: function(request) {
+    var data = {
+     'from_email': 'ronan_mccabe@hotmail.com',
+     'to': [{
+       'email': request.auth.credentials.profile.email,
+       'name': request.auth.credentials.profile.name.first,
+       'type': 'to'
+      }],
+     'autotext': 'true',
+     'subject': 'Welcome to the Dark side!',
+     'html': "Are you going through an existential crisis? We are here to help."
+    };
 
-       'from_email': 'msmichellegar@gmail.com',
-       'to': [
-         {
-           'email': request.auth.credentials.profile.email,
-           'name': request.auth.credentials.profile.name.first,
-           'type': 'to'
-         }
-       ],
-         'autotext': 'true',
-         'subject': 'Welcome to the Dark side!',
-         'html': "Are you going through an existential crisis? We are here to help. "
-};
-  mandrill_client.messages.send({"message": data, "async": false},function(result) {
-  }, function(e) {
-     console.log("Error " + e.message);
-  });
+    mandrillClient.messages.send({"message": data, "async": false}, function(result) {
+    }, function(e) {
+      console.log("Error " + e.message);
+    });
+  }
+
 };
 
 module.exports = emailAlert;

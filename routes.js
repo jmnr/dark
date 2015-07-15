@@ -29,35 +29,35 @@ module.exports = [
   },
   {
     method: 'GET',
-    path: '/my-account',
+    path: '/getProfilePage',
     config: {
-        auth: {
-          strategy: 'session',
-          mode: 'optional',
-        },
-        handler: handlers.getProfilePage
-        }
+      auth: {
+        strategy: 'session',
+        mode: 'optional',
+      },
+      handler: handlers.getProfilePage
+      }
   },
   {
-    method: ['GET', 'POST'],
+    method: 'GET',
     path: '/login',
     config: {
-        auth: {
-          mode: "optional",
-          strategy: "google"
-        },
-        handler: handlers.loginUser
-      }
+      auth: {
+        mode: "try",
+        strategy: "google"
+      },
+      handler: handlers.loginUser
+    }
   },
   {
     method: 'GET',
     path: '/isLoggedIn',
     config: {
-        auth: {
-          mode: "try"
-        },
-        handler: handlers.isLoggedIn
-      }
+      auth: {
+        mode: "try"
+      },
+      handler: handlers.isLoggedIn
+    }
   },
   {
     method: 'GET',
@@ -81,12 +81,22 @@ module.exports = [
   },
   {
     method: "GET",
-    path: '/loadImages',
+    path: '/getHomepageImages',
     config: {
       auth: {
         mode: "try"
       },
-      handler: handlers.loadImages
+      handler: handlers.getHomepageImages
+    }
+  },
+  {
+    method: "GET",
+    path: '/getProfileImages',
+    config: {
+      auth: {
+        mode: "try"
+      },
+      handler: handlers.getProfileImages
     }
   },
   {
