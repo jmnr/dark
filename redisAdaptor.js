@@ -5,9 +5,7 @@ var redisAdaptor = function (config) {
   var client;
   var url = require('url');
 
-  if(process.env.REDIS_CHECK === "local") {
-    client = redis.createClient();
-  } else if (process.env.REDIS_URL) {
+  if (process.env.REDIS_URL) {
     var redisURL = url.parse(process.env.REDIS_URL);
     client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
     client.auth(redisURL.auth.split(":")[1]);
@@ -35,11 +33,11 @@ var redisAdaptor = function (config) {
     addAnalytics: function(data, callback) {
       client.select(1, function() {
           client.hmset(data.time, data, function(err){
-            callback(err);
             client.quit(function(err, data) {
               if (err) {
                 console.log(err);
               } else {
+                callback(err);
                 // console.log('client quit:', data);
               }
             });
@@ -58,12 +56,11 @@ var redisAdaptor = function (config) {
         } else {
           fileLoad.push(data);
           if(fileLoad.length === dbKeys.length) {
-            callback(fileLoad);
             client.quit(function(err, data) {
               if (err) {
                 console.log(err);
               } else {
-                // console.log('client quit:', data);
+                callback(fileLoad);
               }
             });
           }
@@ -94,12 +91,11 @@ var redisAdaptor = function (config) {
 
     delete: function(time, callback) {
       client.del(time, function(err, reply) {
-        callback(reply);
         client.quit(function(err, data) {
           if (err) {
             console.log(err);
           } else {
-            // console.log('client quit:', data);
+            callback(reply);
           }
         });
       });

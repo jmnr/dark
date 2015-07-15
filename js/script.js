@@ -39,7 +39,6 @@ var funcs = {
         accessDOM += funcs.addDivs(files[i]);
       }
       $("#imageContainer").html(accessDOM);
-      // loveClick();
     });
   },
 

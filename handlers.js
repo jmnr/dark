@@ -1,5 +1,6 @@
 var aws = require('aws-sdk'),
-    redis = require('./redisAdaptor.js')({connection: require('redis')}),
+    redis = require('./redisAdaptor.js'),
+    redisConfig = {connection: require('redis')},
     mandrill = require('./mandrill.js');
 
 function handlers() {
@@ -66,7 +67,7 @@ function handlers() {
             googleid: request.auth.credentials.id,
             imgURL: "https://s3-eu-west-1.amazonaws.com/dark-image-bucket/" + s3_params.Key
           };
-          redis.create(imageData, function(err) {
+          redis(redisConfig).create(imageData, function(err) {
             if (err)
               {console.log(err);}
             else {
@@ -79,13 +80,13 @@ function handlers() {
     },
 
     getHomepageImages: function(request, reply) {
-      redis.read(0, function(data){
+      redis(redisConfig).read(0, function(data){
         reply(JSON.stringify(data));
       });
     },
 
     getProfileImages: function(request, reply) {
-      redis.read(0, function(data){
+      redis(redisConfig).read(0, function(data){
         reply(JSON.stringify(data));
       });
     },
@@ -98,7 +99,7 @@ function handlers() {
         id: request.payload.events.request[0].id
       };
 
-      redis.addAnalytics(analObj, function(err) {
+      redis(redisConfig).addAnalytics(analObj, function(err) {
         if (err) {
           console.log(err);
         } else {
@@ -112,7 +113,7 @@ function handlers() {
     analyticsGet: function (request, reply) {
       var result = [];
 
-      redis.read(1, function(data){
+      redis(redisConfig).read(1, function(data){
         reply.view("analytics", {total: data.length});
       });
     },
