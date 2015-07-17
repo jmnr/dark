@@ -7,13 +7,19 @@ module.exports = [
   { //home page
     method: 'GET',
     path: '/',
-    handler: handlers.displayHome
+    config: {
+      auth: {
+        mode: 'optional',
+        strategy: 'session'
+      },
+      handler: handlers.displayHome
+    }
   },
 
   {
     method: 'GET',
     path: '/getProfilePage',
-    handler: handlers.getProfilePage
+    handler: handlers.displayProfile
   },
 
   {
@@ -21,17 +27,23 @@ module.exports = [
     path: '/login',
     config: {
       auth: {
-        mode: 'try',
+        mode: 'required',
         strategy: 'google'
       },
-      handler: handlers.loginUser
+      handler: handlers.login
     }
   },
 
   {
     method: 'GET',
     path: '/isLoggedIn',
-    handler: handlers.isLoggedIn
+    config: {
+      auth: {
+        mode: 'optional',
+        strategy: 'session'
+      },
+      handler: handlers.isLoggedIn
+    }
   },
 
   {
@@ -49,7 +61,13 @@ module.exports = [
   {
     method: 'GET',
     path: '/getHomepageImages',
-    handler: handlers.getHomepageImages
+    config: {
+      auth: {
+        mode: 'optional',
+        strategy: 'session'
+      },
+      handler: handlers.getHomepageImages
+    }
   },
 
   {
@@ -75,8 +93,7 @@ module.exports = [
     path: '/static/{path*}',
     config: {
       auth: {
-        mode: 'optional',
-        strategy: 'google'
+        mode: 'optional'
       },
       handler:  {
         directory: {
