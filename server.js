@@ -2,7 +2,7 @@ var Hapi = require('hapi'),
     fs = require('fs'),
     Path = require('path'),
     Good = require('good'),
-    Bell = require('fixed-bell'),
+    Bell = require('bell'),
     AuthCookie = require('hapi-auth-cookie'),
     server = new Hapi.Server({debug: {request: ['error']}});
 
@@ -13,10 +13,10 @@ server.views({
   engines: {
     html: require('handlebars')
   },
-  path: Path.join(__dirname, "views")
+  path: Path.join(__dirname, 'views')
 });
 
-var authOptions = {
+var googleAuthOptions = {
   provider: 'google',
   password: process.env.ENC_PW, //Password used for encryption
   clientId: process.env.CLIENTID,//'YourAppId',
@@ -24,23 +24,17 @@ var authOptions = {
   isSecure: false //means authentication can occur over http
 };
 
+var sessionAuthOptions = {
+  cookie: 'darkCookie',
+  password: process.env.ENC_PW,
+  isSecure: false
+};
+
 //register plugins with server
 server.register(
-  [{
-    register: Good,
-    options: {
-      reporters: [{
-        reporter: require('good-http'),
-        events: { request: '*' },
-        config: {
-          endpoint : 'http://localhost:8000/analytics',
-          threshold: 0
-        }
-      }]
-    }
-  },
-  { register: Bell},
-  { register: AuthCookie}
+  [
+  {register: Bell},
+  {register: AuthCookie}
   ],
 
   function (err) {
@@ -48,26 +42,17 @@ server.register(
       throw err; // something bad happened loading the plugin
     }
 
-    server.auth.strategy("google", 'bell', authOptions);
+    server.auth.strategy('google', 'bell', googleAuthOptions);
 
-		server.auth.strategy('session', 'cookie', {
-		    cookie: 'sid',
-		    password: '12345678',
-		    // redirectTo: '/', //this allows logout to work!
-        isSecure: false
-        // ttl: 3000  //expiry time of cookie
-        // clearInvalid: true
-		});
+  	server.auth.strategy('session', 'cookie', sessionAuthOptions);
 
     server.auth.default('session');  //if no auth is specified it defaults to checking the session cookie
+
     server.route(require('./routes'));
 
-  }
-
-);
-
-server.start(function () {
-  console.log('Server running at: ' + server.info.uri);
+    server.start(function () {
+      console.log('Server running at: ' + server.info.uri);
+    });
 });
 
 module.exports = server;

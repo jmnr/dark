@@ -3,120 +3,104 @@ var Path = require('path');
 var handlers = require('./handlers.js')();
 
 module.exports = [
+
   { //home page
     method: 'GET',
     path: '/',
     config: {
       auth: {
-        mode: "try",
-      }
-    },
-    handler: handlers.displayHome
-  },
-  { //route for all css, images and js files
-    method: 'GET',
-    path: '/static/{path*}',
-    config: {
-      auth: {
-        mode: "optional"
-      }
-    },
-    handler:  {
-      directory: {
-        path: './'
-      }
+        mode: 'optional',
+        strategy: 'session'
+      },
+      handler: handlers.displayHome
     }
   },
+
   {
     method: 'GET',
     path: '/getProfilePage',
-    config: {
-      auth: {
-        strategy: 'session',
-        mode: 'optional',
-      },
-      handler: handlers.getProfilePage
-      }
+    handler: handlers.displayProfile
   },
+
   {
     method: 'GET',
     path: '/login',
     config: {
       auth: {
-        mode: "try",
-        strategy: "google"
+        mode: 'required',
+        strategy: 'google'
       },
-      handler: handlers.loginUser
+      handler: handlers.login
     }
   },
+
   {
     method: 'GET',
     path: '/isLoggedIn',
     config: {
       auth: {
-        mode: "try"
+        mode: 'optional',
+        strategy: 'session'
       },
       handler: handlers.isLoggedIn
     }
   },
+
   {
     method: 'GET',
     path: '/logout',
-    config: {
-      auth: {
-        mode: "optional"
-      },
-      handler: handlers.logoutUser
-    }
+    handler: handlers.logoutUser
   },
+
   {
-    method: "POST",
+    method: 'POST',
     path: '/sign_s3',
-    config: {
-      auth: {
-        mode: "try"
-      },
-      handler: handlers.awsS3
-    }
+    handler: handlers.awsS3
   },
+
   {
-    method: "GET",
+    method: 'GET',
     path: '/getHomepageImages',
     config: {
       auth: {
-        mode: "try"
+        mode: 'optional',
+        strategy: 'session'
       },
       handler: handlers.getHomepageImages
     }
   },
+
   {
-    method: "GET",
+    method: 'GET',
     path: '/getProfileImages',
-    config: {
-      auth: {
-        mode: "try"
-      },
-      handler: handlers.getProfileImages
-    }
+    handler: handlers.getProfileImages
   },
+
   {
     method: 'POST',
     path: '/analytics',
-    config: {
-      auth: {
-        mode: "try"
-      }
-    },
     handler: handlers.analyticsPost
   },
+
   {
     method: 'GET',
     path: '/analytics',
-    config: {
-      auth: {
-        mode: "try"
-      }
-    },
     handler: handlers.analyticsGet
   },
+
+  { //route for all css, images and js files
+    method: 'GET',
+    path: '/static/{path*}',
+    config: {
+      auth: {
+        mode: 'optional'
+      },
+      handler:  {
+        directory: {
+          path: './'
+        }
+      }
+    },
+  }
+
 ];

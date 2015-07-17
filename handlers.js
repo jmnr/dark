@@ -21,7 +21,7 @@ function handlers() {
      }
     },
 
-    getProfilePage: function(request, reply) {
+    displayProfile: function(request, reply) {
       // request.log('analytics request is being sent');
       if(request.auth.isAuthenticated) {
         reply.view('profile', {name: request.auth.credentials.name.first});
@@ -31,15 +31,15 @@ function handlers() {
       }
     },
 
-    loginUser: function(request, reply) {
+    login: function(request, reply) {
       if(request.auth.isAuthenticated) {
         // mandrill.sendEmail(request);
         request.auth.session.set(request.auth.credentials.profile);
         reply.redirect("/");
       } else {
+        console.log("login error");
         reply.redirect("/");
       }
-
     },
 
     logoutUser: function(request,reply) {
@@ -49,7 +49,11 @@ function handlers() {
     },
 
     awsS3: function(request, reply) { //is this config necessary every time or is this what daniel was on about
-      aws.config.update({accessKeyId: process.env.AWS_ACCESS_KEY_ID, secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY});
+      aws.config.update({
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+      });
+
       var s3 = new aws.S3();
       var s3_params = {
         Bucket: process.env.S3_BUCKET,
@@ -57,6 +61,7 @@ function handlers() {
         ContentType: request.query.file_type,
         ACL: 'public-read'
       };
+
       s3.getSignedUrl('putObject', s3_params, function(err, data){
         if(err){
           console.log("err", err);
