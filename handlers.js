@@ -34,6 +34,7 @@ function handlers() {
     login: function(request, reply) {
       if(request.auth.isAuthenticated) {
         // mandrill.sendEmail(request);
+        console.log("credentials have been set");
         request.auth.session.set(request.auth.credentials.profile);
         reply.redirect("/");
       } else {

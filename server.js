@@ -31,28 +31,22 @@ var sessionAuthOptions = {
 };
 
 //register plugins with server
-server.register(
-  [
-  {register: Bell},
-  {register: AuthCookie}
-  ],
+server.register([Bell, AuthCookie], function (err) {
+  if (err) {
+    throw err; // something bad happened loading the plugin
+  }
 
-  function (err) {
-    if (err) {
-      throw err; // something bad happened loading the plugin
-    }
+  server.auth.strategy('google', 'bell', googleAuthOptions);
 
-    server.auth.strategy('google', 'bell', googleAuthOptions);
+	server.auth.strategy('session', 'cookie', sessionAuthOptions);
 
-  	server.auth.strategy('session', 'cookie', sessionAuthOptions);
+  server.auth.default('session');  //if no auth is specified it defaults to checking the session cookie
 
-    server.auth.default('session');  //if no auth is specified it defaults to checking the session cookie
+  server.route(require('./routes'));
 
-    server.route(require('./routes'));
-
-    server.start(function () {
-      console.log('Server running at: ' + server.info.uri);
-    });
+  server.start(function () {
+    console.log('Server running at: ' + server.info.uri);
+  });
 });
 
 module.exports = server;
