@@ -9,9 +9,9 @@ module.exports = [
     config: {
       auth: {
         mode: "try",
-      }
+      },
+      handler: handlers.displayHome
     },
-    handler: handlers.displayHome
   },
   { //route for all css, images and js files
     method: 'GET',
@@ -19,13 +19,13 @@ module.exports = [
     config: {
       auth: {
         mode: "optional"
+      },
+      handler:  {
+        directory: {
+          path: './'
+        }
       }
     },
-    handler:  {
-      directory: {
-        path: './'
-      }
-    }
   },
   {
     method: 'GET',
@@ -36,7 +36,7 @@ module.exports = [
         mode: 'optional',
       },
       handler: handlers.getProfilePage
-      }
+    }
   },
   {
     method: 'GET',
@@ -105,9 +105,9 @@ module.exports = [
     config: {
       auth: {
         mode: "try"
-      }
+      },
+      handler: handlers.analyticsPost
     },
-    handler: handlers.analyticsPost
   },
   {
     method: 'GET',
@@ -115,8 +115,8 @@ module.exports = [
     config: {
       auth: {
         mode: "try"
-      }
+      },
+      handler: handlers.analyticsGet
     },
-    handler: handlers.analyticsGet
   },
 ];

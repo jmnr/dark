@@ -37,9 +37,9 @@ function handlers() {
         request.auth.session.set(request.auth.credentials.profile);
         reply.redirect("/");
       } else {
+        console.log("login error");
         reply.redirect("/");
       }
-
     },
 
     logoutUser: function(request,reply) {
