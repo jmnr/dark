@@ -10,7 +10,7 @@ function handlers() {
       if (request.auth.isAuthenticated) {
         // request.log('analytics request is being sent');
         reply.view('home', {
-          name: request.auth.credentials.name.first
+          name: request.auth.credentials.profile.name.first
         });
         // reply("true");
       } else {
@@ -24,7 +24,7 @@ function handlers() {
     getProfilePage: function(request, reply) {
       // request.log('analytics request is being sent');
       if(request.auth.isAuthenticated) {
-        reply.view('profile', {name: request.auth.credentials.name.first});
+        reply.view('profile', {name: request.auth.credentials.profile.name.first});
       }
       else {
         reply.redirect("/");
