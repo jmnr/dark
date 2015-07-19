@@ -1,23 +1,34 @@
 $('body').on('click','#submitUpload', function() {
-  var file = document.getElementById("file_input").files[0];
+  var file = document.getElementById('fileInput').files[0];
   if (file === null) {
-    alert("Please select a file.");
-  } else if (file.size > 2500000) {
-    alert("File is too large! Choose a picture less than 2.5MB!");
-    document.getElementById("file_input").value = null;
-  } else if (file.type === "image/jpeg" || file.type === "image/bmp" || file.type === "image/png") {
-    funcs.get_signed_request(file);
+    alert('Please select a file.');
+  } else if (file.size > 2000000) {
+    alert('File is too large! Choose a picture less than 2MB!');
+    document.getElementById('fileInput').value = null;
+  } else if (file.type === 'image/jpeg' || file.type === 'image/bmp' || file.type === 'image/png') {
+    funcs.getSignedRequest(file);
   } else {
-    alert("Invalid file type selected.");
+    alert('Invalid file type selected.');
   }
 });
 
 $('body').on('click','#profileButton', function() {
-  window.location = "/getProfilePage";
+  window.location = '/profile';
 });
 
 $('body').on('click','#loginButton', function() {
-  window.location = "/login";
+  window.location = '/login';
+});
+
+$('body').on('click','.loveButton', function() {
+  var postID = $(this).parent().attr('id');
+  $.ajax({
+    type: "POST",
+    url: '/loveButton',
+    data: {postID: postID}
+  }).done(function() {
+    $('#' + postID + ' img').animate({opacity: 1}, 1000);
+  });
 });
 
 window.onload = function () {
@@ -25,13 +36,13 @@ window.onload = function () {
 
   $.get('/isLoggedIn', function(data) {
     if(data) {
-      $("#userContainer").append(
+      $('#userContainer').append(
         '<div id="loggedInContainer">' +
           '<div id="buttonsContainer">' +
             '<button class="button" id="profileButton">PROFILE</button>' +
             '<button class="button" id="logoutButton"><a href="/logout">LOGOUT</a></button>' +
             '<div id="postDiv">' +
-              '<input type="file" id="file_input"/>' +
+              '<input type="file" id="fileInput"/>' +
               '<p id="status">Please select a file</p>' +
               '<button id="submitUpload" class="button">POST A PHOTO</button>' +
             '</div>' +
@@ -39,7 +50,7 @@ window.onload = function () {
         '</div>'
       );
     } else {
-      $("#userContainer").append(
+      $('#userContainer').append(
         '<div id="loggedOutContainer">' +
           '<button class="button" id="loginButton">SIGN IN</button>' +
         '</div>'

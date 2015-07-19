@@ -30,20 +30,19 @@ var redisAdaptor = function (config) {
       );
     }, //database 0 is for our metadata
 
-    addAnalytics: function(data, callback) {
-      client.select(1, function() {
-          client.hmset(data.time, data, function(err){
-            client.quit(function(err, data) {
-              if (err) {
-                console.log(err);
-              } else {
-                callback(err);
-                // console.log('client quit:', data);
-              }
-            });
+    loveButton: function(postID, callback) {
+      client.select(0, function() {
+        client.hset(postID, "lastLoved", new Date().getTime(), function(err) {
+          client.quit(function(err, data) {
+            if (err) {
+              console.log(err);
+            } else {
+              callback();
+              // console.log('client quit:', data);
+            }
           });
-        }
-      );
+        });
+      });
     }, //database 1 is for analytics
 
     read: function(db, callback) {
@@ -88,6 +87,22 @@ var redisAdaptor = function (config) {
         scan(0);
       });
     },
+
+    addAnalytics: function(data, callback) {
+      client.select(1, function() {
+          client.hmset(data.time, data, function(err){
+            client.quit(function(err, data) {
+              if (err) {
+                console.log(err);
+              } else {
+                callback(err);
+                // console.log('client quit:', data);
+              }
+            });
+          });
+        }
+      );
+    }, //database 1 is for analytics
 
     delete: function(time, callback) {
       client.del(time, function(err, reply) {
