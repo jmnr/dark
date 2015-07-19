@@ -42,7 +42,7 @@ server.register([Bell, AuthCookie], function (err) {
 
   server.auth.default('session');  //if no auth is specified it defaults to checking the session cookie
 
-  server.route(require('./routes'));
+  server.route(require('./js/routes'));
 
   server.start(function () {
     console.log('Server running at: ' + server.info.uri);

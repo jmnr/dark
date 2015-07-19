@@ -27,7 +27,9 @@ var funcs = {
   },
 
   addDivs: function (data) {
-    return '<div class="individualImageDiv"><div class="imageHolder"><img src="' + data.imgURL + '"class="image"></div></div>';
+    var lastLoved = Math.floor((new Date().getTime() - Number(data.lastLoved)) / 86400000);
+    var opacityValue = 1 / lastLoved;
+    return '<div class="individualImageDiv"><div class="imageHolder"><img class="image" style="opacity:' + opacityValue + '" src="' + data.imgURL + '"></div></div>';
   },
 
   getHomepageImages: function () {

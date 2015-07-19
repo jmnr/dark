@@ -67,8 +67,10 @@ function handlers() {
         if(err){
           console.log("err", err);
         } else {
+          var time = new Date().getTime();
           var imageData = {
-            time: new Date().getTime(),
+            lastLoved: time,
+            time: time,
             id: request.query.file_name,
             googleid: request.auth.credentials.id,
             imgURL: "https://s3-eu-west-1.amazonaws.com/dark-image-bucket/" + s3_params.Key
