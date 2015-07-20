@@ -18,7 +18,7 @@ module.exports = [
 
   {
     method: 'GET',
-    path: '/getProfilePage',
+    path: '/profile',
     handler: handlers.displayProfile
   },
 
@@ -54,8 +54,20 @@ module.exports = [
 
   {
     method: 'POST',
-    path: '/sign_s3',
-    handler: handlers.awsS3
+    path: '/signS3',
+    handler: handlers.getSignedS3Request
+  },
+
+  {
+    method: 'POST',
+    path: '/loveButton',
+    config: {
+      auth: {
+        mode: 'optional',
+        strategy: 'session'
+      },
+      handler: handlers.loveButton
+    }
   },
 
   {
@@ -100,7 +112,7 @@ module.exports = [
           path: './'
         }
       }
-    },
+    }
   }
 
 ];

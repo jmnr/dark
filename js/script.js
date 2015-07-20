@@ -12,22 +12,11 @@ var funcs = {
     return 0;
   },
 
-  opacitySet: function (time) {
-    return new Date(new Date().getTime() - Number(time)).getHours() * 10;
-  },
-
-  addID: function () {
-    var ID = "";
-    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for(var i = 0; i < 10; i++) {
-      ID += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return ID;
-  },
-
   addDivs: function (data) {
-    return '<div class="individualImageDiv"><div class="imageHolder"><img src="' + data.imgURL + '"class="image"></div></div>';
+    var howManyHours = Math.round((new Date().getTime() - data.lastLoved) / 1800000); //3600000 is 24hr setting
+    var opacityValue = 1 - (0.04 * howManyHours);
+    return '<div id="' + data.id + '" class="individualImageDiv"><div class="imageHolder"><img class="image" style="opacity:' +
+      opacityValue + '" src="' + data.imgURL + '"></div><button class="loveButton">LOVE</button></div>';
   },
 
   getHomepageImages: function () {
@@ -38,7 +27,7 @@ var funcs = {
       for(var i = 0 ; i < fileLoad; i++) {
         accessDOM += funcs.addDivs(files[i]);
       }
-      $("#imageContainer").html(accessDOM);
+      $('#imageContainer').html(accessDOM);
     });
   },
 
@@ -47,48 +36,33 @@ var funcs = {
     // });
   },
 
-  loveClick: function () {
-    $(".loveButton").on('click', function() {
-      var countElement = $(this).siblings()[1];
-      var loveCountString = $(countElement).html();
-      var loveCount = parseInt(loveCountString);
-      loveCount = loveCount + 1;
-      $(countElement).html(loveCount + " loves");
-      var imageHolder = $(this).siblings()[0];
-      var image = $(imageHolder).children()[0];
-      var currentOpacity = $(image).css('opacity');
-      var opacity = (currentOpacity * 10 + 1)/10;
-      $(image).css('opacity', opacity);
-    });
-  },
-
-  get_signed_request: function (file){
+  getSignedRequest: function (file){
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/sign_s3?file_name=" + funcs.addID() + "&file_type=" + file.type);
+    xhr.open('POST', '/signS3?fileType=' + file.type);
     xhr.onreadystatechange = function(){
       if(xhr.readyState === 4){
         if(xhr.status === 200){
-          funcs.upload_file(file, xhr.responseText);
+          funcs.uploadFile(file, xhr.responseText);
         }
         else{
-          alert("Could not get signed URL.");
+          alert('Could not get signed URL.');
         }
       }
     };
     xhr.send();
   },
 
-  upload_file: function (file, data) {
+  uploadFile: function (file, data) {
     var xhr = new XMLHttpRequest();
-    xhr.open("PUT", data);
+    xhr.open('PUT', data);
     xhr.setRequestHeader('x-amz-acl', 'public-read');
     xhr.onerror = function() {
-      alert("Could not upload file.");
+      alert('Could not upload file.');
     };
     xhr.send(file);
-    $("#status").fadeOut("slow", function() {
-      $("#status").html("File uploaded successfully!").fadeIn("slow");
-      document.getElementById("file_input").value = null; //clears input to prevent the same image being submitted multiple times
+    $('#status').fadeOut('slow', function() {
+      $('#status').html('File uploaded successfully!').fadeIn('slow');
+      document.getElementById('fileInput').value = null; //clears input to prevent the same image being submitted multiple times
     });
   }
 

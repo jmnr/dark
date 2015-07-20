@@ -3,6 +3,16 @@ var aws = require('aws-sdk'),
     redisConfig = {connection: require('redis')},
     mandrill = require('./mandrill.js');
 
+var addID = function () {
+  var ID = '';
+  var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+  for(var i = 0; i < 10; i++) {
+    ID += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return ID;
+};
+
 function handlers() {
   return {
 
@@ -12,7 +22,7 @@ function handlers() {
         reply.view('home', {
           name: request.auth.credentials.name.first
         });
-        // reply("true");
+        // reply('true');
       } else {
         // request.log('analytics request is being sent');
         reply.view('home', {
@@ -27,57 +37,71 @@ function handlers() {
         reply.view('profile', {name: request.auth.credentials.name.first});
       }
       else {
-        reply.redirect("/");
+        reply.redirect('/');
       }
     },
 
     login: function(request, reply) {
       if(request.auth.isAuthenticated) {
         // mandrill.sendEmail(request);
-        console.log("credentials have been set");
+        console.log('credentials have been set');
         request.auth.session.set(request.auth.credentials.profile);
-        reply.redirect("/");
+        reply.redirect('/');
       } else {
-        console.log("login error");
-        reply.redirect("/");
+        console.log('login error');
+        reply.redirect('/');
       }
     },
 
-    logoutUser: function(request,reply) {
+    logoutUser: function(request, reply) {
       // request.log('analytics request is being sent');
       request.auth.session.clear();
-      reply.redirect("/");
+      reply.redirect('/');
     },
 
-    awsS3: function(request, reply) { //is this config necessary every time or is this what daniel was on about
+    loveButton: function(request, reply) {
+      if(request.auth.isAuthenticated) {
+        redis(redisConfig).loveButton(request.payload.postID, function() {
+          reply();
+        });
+      } else {
+        reply();
+      }
+    },
+
+    getSignedS3Request: function(request, reply) { //is this config necessary every time or is this what daniel was on about
       aws.config.update({
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
       });
 
       var s3 = new aws.S3();
+      var postID = addID();
+
       var s3_params = {
         Bucket: process.env.S3_BUCKET,
-        Key: 'images/' + request.query.file_name,
-        ContentType: request.query.file_type,
+        Key: 'images/' + postID,
+        ContentType: request.query.fileType,
         ACL: 'public-read'
       };
 
       s3.getSignedUrl('putObject', s3_params, function(err, data){
         if(err){
-          console.log("err", err);
+          console.log('err', err);
         } else {
+          var time = new Date().getTime();
           var imageData = {
-            time: new Date().getTime(),
-            id: request.query.file_name,
+            lastLoved: time,
+            time: time,
+            id: postID,
             googleid: request.auth.credentials.id,
-            imgURL: "https://s3-eu-west-1.amazonaws.com/dark-image-bucket/" + s3_params.Key
+            imgURL: 'https://s3-eu-west-1.amazonaws.com/dark-image-bucket/' + s3_params.Key
           };
           redis(redisConfig).create(imageData, function(err) {
             if (err)
               {console.log(err);}
             else {
-              console.log("redis success!");
+              console.log('redis success!');
           }
           });
           reply(data);
@@ -97,8 +121,6 @@ function handlers() {
       });
     },
 
-    //Analytics Handlers
-
     analyticsPost: function (request, reply) {
       var analObj = {
         time: request.payload.events.request[0].timestamp,
@@ -109,18 +131,18 @@ function handlers() {
         if (err) {
           console.log(err);
         } else {
-          console.log("added analytics to redis");
+          console.log('added analytics to redis');
         }
       });
 
-      reply(true);
+      reply();
     },
 
     analyticsGet: function (request, reply) {
       var result = [];
 
       redis(redisConfig).read(1, function(data){
-        reply.view("analytics", {total: data.length});
+        reply.view('analytics', {total: data.length});
       });
     },
 
