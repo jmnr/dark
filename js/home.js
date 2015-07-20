@@ -27,7 +27,7 @@ $('body').on('click','.loveButton', function() {
     url: '/loveButton',
     data: {postID: postID}
   }).done(function() {
-    $('#' + postID + ' img').animate({opacity: 1}, 1000);
+    $('#' + postID + ' img').animate({opacity: 1}, 500);
   });
 });
 
@@ -44,7 +44,7 @@ window.onload = function () {
             '<div id="postDiv">' +
               '<input type="file" id="fileInput"/>' +
               '<p id="status">Please select a file</p>' +
-              '<button id="submitUpload" class="button">POST A PHOTO</button>' +
+              '<button id="submitUpload" class="button">SUBMIT</button>' +
             '</div>' +
           '</div>' +
         '</div>'

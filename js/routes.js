@@ -37,7 +37,13 @@ module.exports = [
   {
     method: 'GET',
     path: '/isLoggedIn',
-    handler: handlers.isLoggedIn
+    config: {
+      auth: {
+        mode: 'optional',
+        strategy: 'session'
+      },
+      handler: handlers.isLoggedIn
+    }
   },
 
   {
@@ -106,7 +112,7 @@ module.exports = [
           path: './'
         }
       }
-    },
+    }
   }
 
 ];

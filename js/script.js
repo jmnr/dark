@@ -12,13 +12,9 @@ var funcs = {
     return 0;
   },
 
-  opacitySet: function (time) {
-    return new Date(new Date().getTime() - Number(time)).getHours() * 10;
-  },
-
   addDivs: function (data) {
-    var lastLoved = Math.floor((new Date().getTime() - Number(data.lastLoved)) / 60000); //86400000
-    var opacityValue = 1 / lastLoved;
+    var howManyHours = Math.round((new Date().getTime() - data.lastLoved) / 1800000); //3600000 is 24hr setting
+    var opacityValue = 1 - (0.04 * howManyHours);
     return '<div id="' + data.id + '" class="individualImageDiv"><div class="imageHolder"><img class="image" style="opacity:' +
       opacityValue + '" src="' + data.imgURL + '"></div><button class="loveButton">LOVE</button></div>';
   },
