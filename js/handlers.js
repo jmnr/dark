@@ -3,7 +3,7 @@ var aws = require('aws-sdk'),
     redisConfig = {connection: require('redis')},
     mandrill = require('./mandrill.js');
 
-var addID = function () {
+function addID() {
   var ID = '';
   var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -11,7 +11,7 @@ var addID = function () {
     ID += chars.charAt(Math.floor(Math.random() * chars.length));
   }
   return ID;
-};
+}
 
 function handlers() {
   return {
