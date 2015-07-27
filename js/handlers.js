@@ -69,21 +69,20 @@ function handlers() {
       }
     },
 
-    getSignedS3Request: function(request, reply) { //is this config necessary every time or is this what daniel was on about
+    getSignedS3Request: function(request, reply) {
+      var s3 = new aws.S3(),
+          postID = addID(),
+          s3_params = {
+            Bucket: process.env.S3_BUCKET,
+            Key: 'images/' + postID,
+            ContentType: request.query.fileType,
+            ACL: 'public-read'
+          };
+          
       aws.config.update({
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
       });
-
-      var s3 = new aws.S3();
-      var postID = addID();
-
-      var s3_params = {
-        Bucket: process.env.S3_BUCKET,
-        Key: 'images/' + postID,
-        ContentType: request.query.fileType,
-        ACL: 'public-read'
-      };
 
       s3.getSignedUrl('putObject', s3_params, function(err, data){
         if(err){
